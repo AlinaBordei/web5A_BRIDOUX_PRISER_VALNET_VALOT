@@ -4,10 +4,7 @@
   Tâches | Responsable
 ------------ | -------------
 Etablir la base de données | Toute l'équipe
-Se former sur les technos décidées : 
-    * Techno Back : Java ( Maven, Spring Boot)
-    * Framework Front : JQuery, Bootstrap
-    * BDD: MySQL | Toute l'équipe
+Se former sur les technos décidées : *Techno Back : Java ( Maven, Spring Boot)/ Framework Front : JQuery, Bootstrap/ BDD: MySQL* | Toute l'équipe
 Installer les technos | Toute l'équipe
 Faire un premier commit | Toute l'équipe
 Développer la base de données | Axel
