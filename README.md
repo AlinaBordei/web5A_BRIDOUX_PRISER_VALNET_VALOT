@@ -12,4 +12,4 @@ Construire la page | Alina
 Connexion user | Toute l'équipe
 Initialiser une conversation | Toute l'équipe
 Envoyer/Recevoir un message | Toute l'équipe
-Actualiser les élémens de la page sans recahrger la page | Alina
+Actualiser les élémens de la page sans recharger la page | Alina
