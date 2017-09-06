@@ -1,4 +1,5 @@
 package hello;
+import bdd.*;
 
 import java.util.Arrays;
 
@@ -8,10 +9,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import model.*;
+
 @SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {
+    	/*System.out.println("LE TEST COMMENCE ICI !!");
+    	UserQuery testQuery = new UserQuery();
+    	User user[] = testQuery.select();
+    	int i = 0;
+    	
+    	for(i = 0; i<user.length; i++) {
+    		System.out.println("> " + user[i]);
+    	}
+    	*/
         SpringApplication.run(Application.class, args);
     }
 

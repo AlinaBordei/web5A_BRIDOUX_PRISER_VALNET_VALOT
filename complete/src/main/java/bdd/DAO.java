@@ -53,7 +53,7 @@ public class DAO {
 /*Connexion à une base de donnée en sql avec par exemple le driver, le type, l'url, le port, l'utilisateur et son mot de passe*/
     public static Connection getConnect() throws SQLException {
         if (!(connect instanceof Connection)) {
-            initConnexion("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/projet","root","");
+            initConnexion("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/bddweb","root","");
         }
         return connect;
     }
