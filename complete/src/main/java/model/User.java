@@ -5,6 +5,7 @@ public class User {
 	protected int id_user;
 	protected String username;
 	protected String passsword;
+	protected String alias;
 	
 	public User(){
 		this.id_user = 0;
@@ -17,6 +18,13 @@ public class User {
 		this.username = username;
 		this.passsword = passsword;
 	}
+	
+	@Override
+    public String toString() {
+        return String.format(
+                "User[id=%d, userName='%s', psswd='%s']",
+                id_user, username, passsword);
+    }
 	
 	public void setId(int id) {
         this.id_user = id;
@@ -40,5 +48,13 @@ public class User {
 	
 	public String getPwd() {
         return this.passsword;
+    }
+	
+	public void setAlias(String alias) {
+        this.alias = alias;
+    }
+	
+	public String getAlias() {
+        return this.alias;
     }
 }
