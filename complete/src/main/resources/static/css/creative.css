@@ -5,6 +5,9 @@
 	 
 }
 
+.couleur{
+	background-color: rgb(247,247,247);
+}
 .form_center{
 	margin: 0 auto;
 	width: auto;
