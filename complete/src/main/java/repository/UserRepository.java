@@ -36,11 +36,20 @@ public class UserRepository {
 	
 	public List<User> userById(int id) {
 		List<User> user = new ArrayList<User>();
+		User users = new User();
 		
 		user = jdbcTemplate.query(
                 "SELECT * FROM user WHERE id = ?", new Object[] { id },
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
         );
+		
+		/*while(rs.next()){
+	         //Retrieve by column name
+	         users.getId(rs.getInt("id"));
+	         int age = rs.getInt("age");
+	         String first = rs.getString("first");
+	         String last = rs.getString("last");
+	      }*/
 		
 		return user;
 	}
