@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import model.*;
+import repository.UserRepository;
 
 //@ImportResource("classpath:spring/application-config.xml")
 @PropertySource(value = { "classpath:application.properties" })
@@ -64,6 +65,11 @@ public class Application implements CommandLineRunner{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Bean
+    public UserRepository getUserREpository(JdbcTemplate jdbcTemplate) {
+    	return new UserRepository(jdbcTemplate);
+    }
+    
     @Override
     public void run(String... strings) throws Exception {
 
