@@ -1,63 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  	<link rel="stylesheet" href="/css/creative.css">
-  	<title>WhatsUp</title>
-  </head>
-  
-  <body>
-  <!-- Navbar -->
-	<nav class="navbar navbar-light couleur">
-	 <h1 class="navbar-brand mb-0"><img src="/pictures/lapin.jpg" class="logo">WhatsUp</h1>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/creative.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/myjs.js"></script>
+
+	<title>WhatsUp</title>
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-light">
+		<img src="/pictures/lapin.jpg" class="logo"><h1 class="navbar-brand mb-0">WhatsUp</h1>
 	</nav>
 	
 	<div class="container">
 		<div class="row">
-		  <div class="form_center" align="center">
-		  	<form>
-		  	  <h3>Inscrivez-vous<br></h3>
-			  <div class="form-group">
-			    <label for="exampleInputText1">Nom utilisateur</label>
-			    <input type="text" class="form-control" id="exampleInputText1" placeholder="">
-			  </div>
-			  <div class="form-group">
-		        <label for="inputEmail3">Email</label>
-		         <input type="email" class="form-control" id="inputEmail3" placeholder="">
-              </div>
-			  <div class="form-group">
-			    <label for="exampleInputPassword1">Mot de passe</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
-			  </div>
-			  <button type="submit" class="btn btn-primary">Inscription</button>
-			</form>
-		  </div>
-		  <div class="form_center" align="center">
-		  	<form>
-		  	  <h3>Identifiez-vous<br></h3>
-			  <div class="form-group">
-		        <label for="inputEmail">Email</label>
-		         <input type="email" class="form-control" id="inputEmail" placeholder="">
-              </div>
-			  <div class="form-group">
-			    <label for="exampleInputPassword1">Mot de passe</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
-			  </div>
-			  <button type="submit" class="btn btn-primary">Connexion</button>
-			</form>
-		  </div>
-	    </div>
+			<div id="signin-form" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" align="center">
+				<form>
+					<h3>Identifiez-vous<br></h3>
+					<div class="form-group">
+						<label for="inputEmail">Email</label>
+						<input type="email" class="form-control" id="inputEmail" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Mot de passe</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+					</div>
+					<button type="submit" class="btn btn-primary">Connexion</button>
+					<div class="signup-link"><a href="#">Pas de compte ? Inscrivez-vous</a></div>
+
+				</form>
+			</div>
+			<div id="signup-form" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" align="center">
+				<form>
+					<h3>Inscrivez-vous<br></h3>
+					<div class="form-group">
+						<label for="exampleInputText1">Nom utilisateur</label>
+						<input type="text" class="form-control" id="exampleInputText1" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3">Email</label>
+						<input type="email" class="form-control" id="inputEmail3" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Mot de passe</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+					</div>
+					<button type="submit" class="btn btn-primary">Inscription</button>
+					<div class="signin-link"><a href="#">Déjà un compte ? Connectez-vous</a></div>
+				</form>
+			</div>
+		</div>
 	</div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-  </body>
+
+</body>
 </html>

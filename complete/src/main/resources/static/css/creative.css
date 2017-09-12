@@ -1,14 +1,20 @@
 .logo{
-	
 	width: 70px;
-	padding: 2px 2px;
-	 
+	padding: 2px 2px; 
 }
 
-.couleur{
-	background-color: rgb(247,247,247);
+.navbar{
+	background-color: #f7f7f7;
 }
 .form_center{
 	margin: 0 auto;
 	width: auto;
+}
+
+.signup-link{
+    padding-top: 8px;
+}
+
+.signin-link{
+    padding-top: 8px;
 }
