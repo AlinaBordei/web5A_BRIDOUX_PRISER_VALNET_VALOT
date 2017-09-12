@@ -27,3 +27,7 @@
 .signin-link{
     padding-top: 8px;
 }
+
+#conversation{
+    border-left: 1px solid black;
+}

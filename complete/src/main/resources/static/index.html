@@ -46,9 +46,9 @@
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	</form>
 
-	<div class="container">
+	<div id="signinup" class="container">
 		<div class="row">
-			<div id="signin-form" class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3" style="display: none;" align="center">
+			<div id="signin-form" class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3" align="center">
 				<form>
 					<h3>Identifiez-vous<br></h3>
 					<div class="form-group">
@@ -59,14 +59,14 @@
 						<label for="exampleInputPassword1">Mot de passe</label>
 						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
 					</div>
-					<button type="submit" class="btn btn-primary">Connexion</button>
-					<div class="signup-link"><a href="#">Pas de compte ? Inscrivez-vous</a></div>
+					<input id="signin-btn" type="submit" class="btn btn-primary" value="Connexion"></input>
+					<div class="signup-link"><a href="#">Créer un compte</a></div>
 
 				</form>
 			</div>
-			<div id="signup-form" class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3" align="center">
+			<div id="signup-form" class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3" style="display: none;" align="center">
 				<form>
-					<h3>Inscrivez-vous<br></h3>
+					<h3>Créer votre compte WhatsUp<br></h3>
 					<div class="form-group">
 						<label for="exampleInputText1">Nom utilisateur</label>
 						<input type="text" class="form-control" id="exampleInputText1" placeholder="">
@@ -79,11 +79,30 @@
 						<label for="exampleInputPassword1">Mot de passe</label>
 						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
 					</div>
-					<button type="submit" class="btn btn-primary">Inscription</button>
-					<div class="signin-link"><a href="#">Déjà un compte ? Connectez-vous</a></div>
+					<input id="signup-btn" type="submit" class="btn btn-primary" value="Créer un compte"></input>
 				</form>
 			</div>
+			
 		</div>
+		<!-- LISTE DES CONVERSATIONS -->
+		<div id="message-ui" class="container" style="display: none;">
+			<div class="row">
+				<div id="list-conv" class="col-sm-6 col-md-4 col-lg-3" align="left">
+					<input type="text" autocomplete="off" placeholder="Search Messenger" spellcheck="false" value="">
+					<h3>Conversations</h3>
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#" role="tab" aria-controls="profile">Users</a>
+					</div>
+				</div>
+				<div id="conversation" class="col-sm-6 col-md-8 col-lg-9" align="left">
+					<h3>Discussion</h3>
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#" role="tab" aria-controls="profile">Users</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 </body>
