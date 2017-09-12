@@ -28,9 +28,24 @@ public class UserRepository {
 	    
 	    users = jdbcTemplate.query(
                 "SELECT * FROM user",
-                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"))
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
         );
 	    
 	    return users;
+	}
+	
+	public List<User> userById(int id) {
+		List<User> user = new ArrayList<User>();
+		
+		user = jdbcTemplate.query(
+                "SELECT * FROM user WHERE id = ?", new Object[] { id },
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
+        );
+		
+		return user;
+	}
+	
+	public void addUser() {
+		
 	}
 }

@@ -96,7 +96,7 @@ public class Application implements CommandLineRunner{
         System.out.println("JE SUIS AU DEBUT DE MA FONCTION !!");
         jdbcTemplate.query(
                 "SELECT * FROM user",
-                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"))
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
         ).forEach(user -> System.out.println(user.toString()));
         System.out.println("JE SUIS A LA FIN DE MA FONCTION !!");
     }
