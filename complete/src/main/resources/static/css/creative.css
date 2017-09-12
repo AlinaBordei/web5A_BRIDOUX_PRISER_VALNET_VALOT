@@ -4,11 +4,20 @@
 }
 
 .navbar{
-	background-color: #f7f7f7;
+	background-color: #0275d8;
 }
+
 .form_center{
 	margin: 0 auto;
 	width: auto;
+}
+
+#signup-form{
+	padding-top: 10%;
+}
+
+#signin-form{
+	padding-top: 10%;
 }
 
 .signup-link{
