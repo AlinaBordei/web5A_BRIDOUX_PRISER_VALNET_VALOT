@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.lang.model.util.Types;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,27 +35,18 @@ public class UserRepository {
 	    return users;
 	}
 	
-	public List<User> userById(int id) {
+	public User userById(int id) {
 		List<User> user = new ArrayList<User>();
-		User users = new User();
 		
 		user = jdbcTemplate.query(
                 "SELECT * FROM user WHERE id = ?", new Object[] { id },
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
         );
 		
-		/*while(rs.next()){
-	         //Retrieve by column name
-	         users.getId(rs.getInt("id"));
-	         int age = rs.getInt("age");
-	         String first = rs.getString("first");
-	         String last = rs.getString("last");
-	      }*/
-		
-		return user;
+		return user.get(0);
 	}
 	
-	public void addUser() {
-		
+	public int addUser(String name, String password, String mail) {
+		return jdbcTemplate.update("INSERT INTO user(name, password, mail) VALUES(?,?,?)", name, password, mail);
 	}
 }

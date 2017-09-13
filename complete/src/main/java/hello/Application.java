@@ -92,13 +92,13 @@ public class Application implements CommandLineRunner{
 
         // Uses JdbcTemplate's batchUpdate operation to bulk load data
         jdbcTemplate.batchUpdate("INSERT INTO user(name, password) VALUES (?,?)", splitUpNames);
-		*/
+		
         System.out.println("JE SUIS AU DEBUT DE MA FONCTION !!");
         jdbcTemplate.query(
                 "SELECT * FROM user",
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
         ).forEach(user -> System.out.println(user.toString()));
-        System.out.println("JE SUIS A LA FIN DE MA FONCTION !!");
+        System.out.println("JE SUIS A LA FIN DE MA FONCTION !!");*/
     }
 
 }

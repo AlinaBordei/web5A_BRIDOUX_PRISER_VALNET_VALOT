@@ -21,13 +21,22 @@ public class UserController {
 	@Inject
 	UserRepository userRepo;
 	
+	//Get all users
     @GetMapping("/users")
     public @ResponseBody List<User> allUsers() {
     	return userRepo.allUsers();
     }
     
+    //Get user by id
     @GetMapping("/usersById/{id}")
-    public @ResponseBody List<User> userById(@PathVariable("id") Integer id) {
+    public @ResponseBody User userById(@PathVariable("id") Integer id) {
     	return userRepo.userById(id);
+    }
+    
+    //Add user
+    @GetMapping("/addUser/{name}/{password}/{mail}")
+    public @ResponseBody int addUser(@PathVariable("name") String name,@PathVariable("password") String password, @PathVariable("mail") String mail) {
+    	//Return 1 when it's ok
+    	return userRepo.addUser(name, password, mail);
     }
 }
