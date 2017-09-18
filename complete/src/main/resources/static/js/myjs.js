@@ -10,6 +10,12 @@ $(document).ready(function() {
 		$( "#signup-form" ).fadeIn(200);
 	});
 	
+
+	$( ".signin-link" ).click(function() {
+		$( "#signup-form" ).hide();
+		$( "#signin-form" ).fadeIn(200);
+	});
+
 	$( "#signin-btn" ).click(function() {
 		$( "#signup-form" ).hide();
 		$( "#signin-form" ).hide();
