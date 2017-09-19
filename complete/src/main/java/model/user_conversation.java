@@ -1,17 +1,17 @@
 package model;
 
-public class Exchanges {
+public class user_conversation {
 
 	protected int userId;
 	protected int conversationId;
 	
-	public Exchanges(){
+	public user_conversation(){
 		this.userId = 0;
 		this.conversationId = 0;
 
 	}
 	
-	public Exchanges(int userId, int conversationId) {
+	public user_conversation(int userId, int conversationId) {
 		this.userId = userId;
 		this.conversationId = conversationId;
 	}
@@ -20,8 +20,8 @@ public class Exchanges {
         this.userId = iduser;
     }
 	
-	public void setIde(int idExchanges) {
-        this.conversationId = idExchanges;
+	public void setIde(int idConversation) {
+        this.conversationId = idConversation;
     }
 	
 	public int getIdu() {

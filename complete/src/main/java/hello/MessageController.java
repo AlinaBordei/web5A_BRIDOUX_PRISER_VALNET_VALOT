@@ -14,10 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import repository.UserRepository;
 import model.User;
+//TODO
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/*
 
 //Rest for transferring data
 @RestController
-public class UserController {	
+public class MessageController {	
 	@Inject
 	UserRepository userRepo;
 	
@@ -34,7 +52,15 @@ public class UserController {
     	return userRepo.userById(id);
     }
     
-    @RequestMapping(value="/addUser",method=RequestMethod.POST)
+    //Add user
+    @GetMapping("/addUser/{name}/{password}/{mail}")
+    public @ResponseBody int addUser(@PathVariable("name") String name,@PathVariable("password") String password, @PathVariable("mail") String mail) {
+    	//Return 1 when it's ok
+    	return userRepo.addUser(name, password, mail);
+    }
+    
+    //To test
+    @PostMapping("/addUser2")
     public @ResponseBody int addUserJson(@RequestBody User user) {
     	String name = user.getUserName();
     	String password = user.getPassword();
@@ -42,4 +68,4 @@ public class UserController {
       //Return 1 when it's ok
     	return userRepo.addUser(name, password, mail);
     }
-}
+}*/

@@ -29,8 +29,8 @@
 
 		<div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<button id="btn-disconnect" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Déconnexion</button>
+				<li class="nav-item" id="btn-disconnect" style="display: none;">
+					<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Déconnexion</button>
 				</li>
 			</ul>
 		</div>
@@ -65,15 +65,15 @@
 					<h3>Créer votre compte WhatsUp<br></h3>
 					<div class="form-group">
 						<label for="exampleInputText1">Nom utilisateur</label>
-						<input type="text" class="form-control" id="exampleInputText1" placeholder="">
+						<input type="text" class="form-control" id="userName" placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3">Email</label>
-						<input type="email" class="form-control" id="inputEmail3" placeholder="">
+						<input type="email" class="form-control" id="mail" placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Mot de passe</label>
-						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+						<input type="password" class="form-control" id="password" placeholder="">
 					</div>
 					<input id="signup-btn" type="submit" class="btn btn-primary" value="Créer un compte"></input>
 					<div class="signin-link"><a href="#">Connectez-vous</a></div>
@@ -81,7 +81,6 @@
 			</div>
 		</div>
 	</div>	
-	
 	
 	<!-- MESSAGERIE INSTANTANEE -->
 	
@@ -256,6 +255,8 @@
 		</div> <!-- end of row -->
 
 	</div>
+	
+	<div id="toasted"></div>
 	
 </body>
 </html>
