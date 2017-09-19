@@ -48,6 +48,13 @@ $(document).ready(function() {
 		  dataType: 'json'
 		}).done(function(){
 			alert("Tu es enregistré !");	
+			//toast("Bien inscrit(e) !");
 		});	
+	}
+	
+	function toast(text) {
+	    $("#toasted").empty();
+	    $("#toasted").append(text);
+	    $("#toasted").css( "visibility", "show" );
 	}
 });
