@@ -34,15 +34,7 @@ public class UserController {
     	return userRepo.userById(id);
     }
     
-    //Add user
-    @GetMapping("/addUser/{name}/{password}/{mail}")
-    public @ResponseBody int addUser(@PathVariable("name") String name,@PathVariable("password") String password, @PathVariable("mail") String mail) {
-    	//Return 1 when it's ok
-    	return userRepo.addUser(name, password, mail);
-    }
-    
-    //To test
-    @PostMapping("/addUser2")
+    @RequestMapping(value="/addUser",method=RequestMethod.POST)
     public @ResponseBody int addUserJson(@RequestBody User user) {
     	String name = user.getUserName();
     	String password = user.getPassword();
