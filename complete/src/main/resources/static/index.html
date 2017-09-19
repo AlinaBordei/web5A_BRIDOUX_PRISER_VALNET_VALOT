@@ -222,8 +222,8 @@
 				</div>
 
 				<div class="chat_area">
-					<ul class="list-unstyled">
-						<li class="left clearfix">
+					<ul class="chat-list list-unstyled">
+						<li id="recieved" class="left clearfix hide">
 							<span class="pull-left">
 								<img src="/pictures/alina.JPG">
 							</span>
@@ -232,7 +232,7 @@
 								<div class="chat_time pull-right"><small>20:31</small></div>
 							</div>
 						</li>
-						<li class="left clearfix admin_chat">
+						<li class="left clearfix admin_chat hide send">
 							<span class="pull-right">
 								<img src="/pictures/alina.JPG">
 							</span>
@@ -245,10 +245,10 @@
 				</div><!-- end of chat_area-->
 
 				<div class="message_write">
-					<textarea class="form-control" placeholder="Ecrivez un message..."></textarea>
+					<textarea id="msg" class="form-control" placeholder="Ecrivez un message..."></textarea>
 					<div class="clearfix"></div>
 					<div class="chat_bottom">
-						<a href="#" class="pull-right btn btn-primary">Envoyer</a>
+						<a id="btn-send-msg" href="#" class="pull-right btn btn-primary">Envoyer</a>
 					</div>
 				</div>
 			</div>

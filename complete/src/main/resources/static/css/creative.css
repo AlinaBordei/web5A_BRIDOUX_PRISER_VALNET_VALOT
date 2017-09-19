@@ -86,7 +86,11 @@
 	padding: 15px;
 	width: 100%;
 }
-  
+
+.hide{
+  display:none;  
+}
+
 .chat_area {
 	float: left;
 	height: 300px;
