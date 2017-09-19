@@ -24,11 +24,11 @@ public class MessageRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public List<Message> messageById(int messageId) {
+	public List<Message> messageByConversation(int conversationID) {
 		List<Message> exchange = new ArrayList<Message>();
 
-		exchange = jdbcTemplate.query("SELECT * FROM message WHERE IDMessage = ?", new Object[] { messageId },
-				(rs, rowNum) -> new Message(rs.getInt("messageId")));
+		exchange = jdbcTemplate.query("SELECT * FROM message WHERE conversationID = ?", new Object[] { conversationID },
+				(rs, rowNum) -> new Message(rs.getInt("messageId"), rs.getInt("conversationID"), rs.getString("message"), rs.getDate("datetime"), rs.getInt("userID")));
 
 		return exchange;
 	}
