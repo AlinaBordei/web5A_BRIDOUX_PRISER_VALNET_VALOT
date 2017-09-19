@@ -2,61 +2,60 @@ package model;
 
 public class User {
 
-	protected int id_user;
-	protected String username;
-	protected String passsword;
+	protected int userId;
+	protected String userName;
+	protected String password;
 	protected String mail;
-	
-	public User(){
-		this.id_user = 0;
-		this.username = null;
-		this.passsword = null;
+
+	public User() {
+		this.userId = 0;
+		this.userName = null;
+		this.password = null;
 		this.mail = null;
 	}
-	
-	public User(int id_user, String username, String passsword, String mail) {
-		this.id_user = id_user;
-		this.username = username;
-		this.passsword = passsword;
+
+	public User(int userId, String username, String password, String mail) {
+		this.userId = userId;
+		this.userName = username;
+		this.password = password;
 		this.mail = mail;
 	}
-	
+
 	@Override
-    public String toString() {
-        return String.format(
-                "User[id=%d, userName='%s', psswd='%s', mail='%s']",
-                id_user, username, passsword,mail);
-    }
-	
-	public void setId(int id) {
-        this.id_user = id;
-    }
-	
-	public int getId() {
-        return this.id_user;
-    }
-	
-	public void setName(String name) {
-        this.username = name;
-    }
-	
-	public String getName() {
-        return this.username;
-    }
-	
-	public void setPwd(String pwd) {
-        this.passsword = pwd;
-    }
-	
-	public String getPwd() {
-        return this.passsword;
-    }
-	
+	public String toString() {
+		return String.format("User[userId=%d, username='%s', password='%s', mail='%s']", userId, userName, password,
+				mail);
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
 	public void setMail(String mail) {
-        this.mail = mail;
-    }
-	
+		this.mail = mail;
+	}
+
 	public String getMail() {
-        return this.mail;
-    }
+		return this.mail;
+	}
 }

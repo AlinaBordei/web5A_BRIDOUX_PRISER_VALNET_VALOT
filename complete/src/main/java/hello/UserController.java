@@ -44,8 +44,8 @@ public class UserController {
     //To test
     @PostMapping("/addUser2")
     public @ResponseBody int addUserJson(@RequestBody User user) {
-    	String name = user.getName();
-    	String password = user.getPwd();
+    	String name = user.getUserName();
+    	String password = user.getPassword();
     	String mail = user.getMail();
       //Return 1 when it's ok
     	return userRepo.addUser(name, password, mail);
