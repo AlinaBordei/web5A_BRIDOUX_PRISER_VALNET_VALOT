@@ -10,7 +10,6 @@ $(document).ready(function() {
 		$( "#signup-form" ).fadeIn(200);
 	});
 	
-
 	$( ".signin-link" ).click(function() {
 		$( "#signup-form" ).hide();
 		$( "#signin-form" ).fadeIn(200);
@@ -20,10 +19,14 @@ $(document).ready(function() {
 		$( "#signup-form" ).hide();
 		$( "#signin-form" ).hide();
 		$( "#message-ui" ).show();
+		$( "#btn-disconnect" ).fadeIn(200);
 	});
 
 	$( "#btn-disconnect" ).click(function() {
-		alert("deco");
+		$( "#signup-form" ).hide();
+		$( "#btn-disconnect" ).hide();
+		$( "#message-ui" ).hide();
+		$( "#signin-form" ).show(200);
 	});
 
 });
