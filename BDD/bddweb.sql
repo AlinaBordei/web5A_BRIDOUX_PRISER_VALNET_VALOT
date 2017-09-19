@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 19 Septembre 2017 à 07:58
+-- Généré le :  Mar 19 Septembre 2017 à 09:13
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -27,8 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `conversation` (
-  `IDConversation` int(11) NOT NULL,
-  `id_users` int(11) NOT NULL
+  `IDConversation` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -41,7 +40,8 @@ CREATE TABLE `message` (
   `IDMessage` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
-  `id_conversation` int(11) NOT NULL
+  `id_conversation` int(11) NOT NULL,
+  `userID` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -70,6 +70,17 @@ INSERT INTO `user` (`id`, `name`, `password`, `mail`) VALUES
 (6, 'claraouu', 'youpi', 'calara.bridoux@gmail'),
 (7, 'coco', 'coco', 'coco@coco');
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_conversation`
+--
+
+CREATE TABLE `user_conversation` (
+  `conversationID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 --
 -- Index pour les tables exportées
 --
@@ -84,7 +95,8 @@ ALTER TABLE `conversation`
 -- Index pour la table `message`
 --
 ALTER TABLE `message`
-  ADD PRIMARY KEY (`IDMessage`);
+  ADD PRIMARY KEY (`IDMessage`),
+  ADD KEY `id_conversation` (`id_conversation`);
 
 --
 -- Index pour la table `user`
