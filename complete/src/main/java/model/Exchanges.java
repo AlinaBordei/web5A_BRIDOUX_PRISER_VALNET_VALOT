@@ -2,33 +2,33 @@ package model;
 
 public class Exchanges {
 
-	protected int id_users;
-	protected int IDConversation;
+	protected int userId;
+	protected int conversationId;
 	
 	public Exchanges(){
-		this.id_users = 0;
-		this.IDConversation = 0;
+		this.userId = 0;
+		this.conversationId = 0;
 
 	}
 	
-	public Exchanges(int id_users, int IDConversation) {
-		this.id_users = id_users;
-		this.IDConversation = IDConversation;
+	public Exchanges(int userId, int conversationId) {
+		this.userId = userId;
+		this.conversationId = conversationId;
 	}
 	
 	public void setIdu(int iduser) {
-        this.id_users = iduser;
+        this.userId = iduser;
     }
 	
 	public void setIde(int idExchanges) {
-        this.IDConversation = idExchanges;
+        this.conversationId = idExchanges;
     }
 	
 	public int getIdu() {
-        return this.id_users;
+        return this.userId;
     }
 	
 	public int getIde() {
-        return this.IDConversation;
+        return this.conversationId;
     }
 }

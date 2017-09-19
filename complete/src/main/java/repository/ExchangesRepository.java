@@ -16,33 +16,29 @@ import model.User;
 @Repository
 @Named
 public class ExchangesRepository {
-	
+
 	@Autowired
-    JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate;
 
 	public ExchangesRepository(JdbcTemplate jdbcTemplate2) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	public List<Exchanges> allExchanges() {
-	    List<Exchanges> exchanges = new ArrayList<Exchanges>();
-	    
-	    exchanges = jdbcTemplate.query(
-                "SELECT * FROM conversation",
-                (rs, rowNum) -> new Exchanges(rs.getInt("IDConversation"), rs.getInt("id_users"))
-        );
-	    
-	    return exchanges;
+		List<Exchanges> exchanges = new ArrayList<Exchanges>();
+
+		exchanges = jdbcTemplate.query("SELECT * FROM conversation",
+				(rs, rowNum) -> new Exchanges(rs.getInt("conversationId"), rs.getInt("userId")));
+
+		return exchanges;
 	}
-	
-	public List<Exchanges> userById(int id) {
+
+	public List<Exchanges> exchangesById(int conversationId) {
 		List<Exchanges> exchange = new ArrayList<Exchanges>();
-		
-		exchange = jdbcTemplate.query(
-                "SELECT * FROM conversation WHERE id_users = ?", new Object[] { id },
-                (rs, rowNum) -> new Exchanges(rs.getInt("IDConversation"), rs.getInt("id_users"))
-        );
-		
+
+		exchange = jdbcTemplate.query("SELECT * FROM conversation WHERE userId = ?", new Object[] { conversationId },
+				(rs, rowNum) -> new Exchanges(rs.getInt("conversationId"), rs.getInt("userId")));
+
 		return exchange;
 	}
 }
