@@ -35,7 +35,7 @@ import model.User;
 //
 //
 
-
+/*
 //Rest for transferring data
 @RestController
 public class User_conversation_Controller {	
@@ -72,3 +72,4 @@ public class User_conversation_Controller {
     	return userRepo.addUser(name, password, mail);
     }
 }
+*/

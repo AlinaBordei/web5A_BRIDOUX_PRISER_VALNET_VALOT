@@ -32,7 +32,7 @@ import model.User;
 //
 //
 //
-
+/*
 //Rest for transferring data
 @RestController
 public class ConversationController {	
@@ -72,4 +72,4 @@ public class ConversationController {
       //Return 1 when it's ok
     	return userRepo.addUser(name, password, mail);
     }
-}
+}*/
