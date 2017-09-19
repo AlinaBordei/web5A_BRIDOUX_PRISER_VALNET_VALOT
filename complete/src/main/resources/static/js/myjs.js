@@ -21,4 +21,9 @@ $(document).ready(function() {
 		$( "#signin-form" ).hide();
 		$( "#message-ui" ).show();
 	});
+
+	$( "#btn-disconnect" ).click(function() {
+		alert("deco");
+	});
+
 });
