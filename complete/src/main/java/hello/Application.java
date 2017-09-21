@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import model.*;
+import repository.ConversationRepository;
 import repository.UserRepository;
 
 //@ImportResource("classpath:spring/application-config.xml")
@@ -68,6 +69,11 @@ public class Application implements CommandLineRunner{
     @Bean
     public UserRepository getUserREpository(JdbcTemplate jdbcTemplate) {
     	return new UserRepository(jdbcTemplate);
+    }
+    
+    @Bean
+    public ConversationRepository getConversationRepository(JdbcTemplate jdbcTemplate) {
+    	return new ConversationRepository(jdbcTemplate);
     }
     
     @Override

@@ -6,12 +6,10 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.Conversation;
-import model.User;
 
 @Repository
 @Named
