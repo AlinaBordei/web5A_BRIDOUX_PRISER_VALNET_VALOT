@@ -1,34 +1,34 @@
 package model;
 
-public class user_conversation {
+public class UserConversation {
 
 	protected int userId;
 	protected int conversationId;
 	
-	public user_conversation(){
+	public UserConversation(){
 		this.userId = 0;
 		this.conversationId = 0;
 
 	}
 	
-	public user_conversation(int userId, int conversationId) {
+	public UserConversation(int userId, int conversationId) {
 		this.userId = userId;
 		this.conversationId = conversationId;
 	}
 	
-	public void setIdu(int iduser) {
-        this.userId = iduser;
+	public void setUserId(int idUser) {
+        this.userId = idUser;
     }
 	
-	public void setIde(int idConversation) {
+	public void setConversationId(int idConversation) {
         this.conversationId = idConversation;
     }
 	
-	public int getIdu() {
+	public int getUserId() {
         return this.userId;
     }
 	
-	public int getIde() {
+	public int getConversationId() {
         return this.conversationId;
     }
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +29,8 @@ public class ConversationController {
     }
 
     //Get conversation by id
-    @GetMapping("/ConversationById/{id}")
-    public @ResponseBody List<Conversation> ConversationById(int id) {
-    	return convRepo.ConversationById(id);
+    @GetMapping("/conversationById/{id}")
+    public @ResponseBody List<Conversation> conversationById(@PathVariable("id") Integer id) {
+    	return convRepo.conversationById(id);
     }
 }

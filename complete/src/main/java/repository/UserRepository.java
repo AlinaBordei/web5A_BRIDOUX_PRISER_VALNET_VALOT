@@ -19,7 +19,7 @@ public class UserRepository {
 	@Autowired
     JdbcTemplate jdbcTemplate;
 
-	public UserRepository(JdbcTemplate jdbcTemplate2) {
+	public UserRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 

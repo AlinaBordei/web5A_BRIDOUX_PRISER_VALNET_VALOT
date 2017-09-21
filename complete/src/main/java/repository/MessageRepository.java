@@ -6,12 +6,10 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.Message;
-import model.User;
 
 @Repository
 @Named
@@ -20,16 +18,16 @@ public class MessageRepository {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	public MessageRepository(JdbcTemplate jdbcTemplate2) {
+	public MessageRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public List<Message> messageByConversation(int conversationID) {
-		List<Message> exchange = new ArrayList<Message>();
+	public List<Message> messageByConversationId(int conversationID) {
+		List<Message> messages = new ArrayList<Message>();
 
-		exchange = jdbcTemplate.query("SELECT * FROM message WHERE conversationID = ?", new Object[] { conversationID },
-				(rs, rowNum) -> new Message(rs.getInt("messageId"), rs.getInt("conversationID"), rs.getString("message"), rs.getDate("datetime"), rs.getInt("userID")));
+		messages = jdbcTemplate.query("SELECT * FROM message WHERE id_conversation = ?", new Object[] { conversationID },
+				(rs, rowNum) -> new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getDate("date"), rs.getInt("userID")));
 
-		return exchange;
+		return messages;
 	}
 }

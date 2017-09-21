@@ -2,7 +2,6 @@ package model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class Message {
 

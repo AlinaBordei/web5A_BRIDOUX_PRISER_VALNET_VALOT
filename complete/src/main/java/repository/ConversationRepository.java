@@ -18,7 +18,7 @@ public class ConversationRepository {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	public ConversationRepository(JdbcTemplate jdbcTemplate2) {
+	public ConversationRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
@@ -26,16 +26,16 @@ public class ConversationRepository {
 		List<Conversation> Conversation = new ArrayList<Conversation>();
 
 		Conversation = jdbcTemplate.query("SELECT * FROM conversation",
-				(rs, rowNum) -> new Conversation(rs.getInt("conversationId")));
+				(rs, rowNum) -> new Conversation(rs.getInt("IDConversation")));
 
 		return Conversation;
 	}
 
-	public List<Conversation> ConversationById(int conversationId) {
+	public List<Conversation> conversationById(int conversationId) {
 		List<Conversation> conversation = new ArrayList<Conversation>();
 
-		conversation = jdbcTemplate.query("SELECT * FROM conversation WHERE conversationId = ?", new Object[] { conversationId },
-				(rs, rowNum) -> new Conversation(rs.getInt("conversationId")));
+		conversation = jdbcTemplate.query("SELECT * FROM conversation WHERE IDConversation = ?", new Object[] { conversationId },
+				(rs, rowNum) -> new Conversation(rs.getInt("IDConversation")));
 
 		return conversation;
 	}

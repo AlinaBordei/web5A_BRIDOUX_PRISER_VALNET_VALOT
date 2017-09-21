@@ -8,24 +8,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import model.*;
 import repository.ConversationRepository;
+import repository.MessageRepository;
 import repository.UserRepository;
+import repository.UserConversationRepository;
 
 //@ImportResource("classpath:spring/application-config.xml")
 @PropertySource(value = { "classpath:application.properties" })
@@ -74,6 +66,16 @@ public class Application implements CommandLineRunner{
     @Bean
     public ConversationRepository getConversationRepository(JdbcTemplate jdbcTemplate) {
     	return new ConversationRepository(jdbcTemplate);
+    }
+    
+    @Bean
+    public UserConversationRepository getUserConversationRepository(JdbcTemplate jdbcTemplate) {
+    	return new UserConversationRepository(jdbcTemplate);
+    }
+    
+    @Bean
+    public MessageRepository getMessageRepository(JdbcTemplate jdbcTemplate) {
+    	return new MessageRepository(jdbcTemplate);
     }
     
     @Override

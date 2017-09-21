@@ -33,6 +33,7 @@ public class UserController {
     	return userRepo.userById(id);
     }
     
+    //Insert new user(json) 
     @RequestMapping(value="/addUser",method=RequestMethod.POST)
     public @ResponseBody int addUserJson(@RequestBody User user) {
     	String name = user.getUserName();
