@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -29,5 +30,9 @@ public class MessageRepository {
 				(rs, rowNum) -> new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getDate("date"), rs.getInt("userID")));
 
 		return messages;
+	}
+	
+	public int addMessage(int conversationID, String message, Date datetime, int userID) {
+		return jdbcTemplate.update("INSERT INTO message(message, date, id_conversation, userID) VALUES(?,?,?,?)", message, datetime, conversationID, userID);
 	}
 }

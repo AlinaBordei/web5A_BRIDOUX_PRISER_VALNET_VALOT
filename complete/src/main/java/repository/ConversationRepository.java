@@ -39,4 +39,8 @@ public class ConversationRepository {
 
 		return conversation;
 	}
+	
+	public int addConversation() {
+		return jdbcTemplate.update("INSERT INTO conversation() VALUES()");
+	}
 }

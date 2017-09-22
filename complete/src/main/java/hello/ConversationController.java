@@ -6,15 +6,13 @@ import javax.inject.Inject;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import repository.ConversationRepository;
 import model.Conversation;
-
-// TODO
-//
-//
 
 //Rest for transferring data
 @RestController
@@ -32,5 +30,12 @@ public class ConversationController {
     @GetMapping("/conversationById/{id}")
     public @ResponseBody List<Conversation> conversationById(@PathVariable("id") Integer id) {
     	return convRepo.conversationById(id);
+    }
+    
+  //Insert new user(json) 
+    @RequestMapping(value="/addConversation",method=RequestMethod.POST)
+    public @ResponseBody int addConversation() {
+      //Return 1 when it's ok
+    	return convRepo.addConversation();
     }
 }

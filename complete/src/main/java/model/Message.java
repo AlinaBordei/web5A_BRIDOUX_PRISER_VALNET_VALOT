@@ -29,45 +29,45 @@ public class Message {
 	}
 
 	///////////////////// SET /////////////////////
-	public void setIDM(int messageId) {
+	public void setMessageId(int messageId) {
 		this.messageId = messageId;
 	}
 
-	public void setIDC(int conversationID) {
+	public void setConversationID(int conversationID) {
 		this.conversationID = conversationID;
 	}
 
-	public void setTxt(String message) {
+	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	public void setDTM(Date datetime) {
+	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
 
-	public void setIDU(int userID) {
+	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 	///////////////////// GET /////////////////////
 
-	public int getIdm() {
+	public int getMessageId() {
 		return this.messageId;
 	}
 
-	public String getIDC() {
+	public int getConversationID() {
+		return this.conversationID;
+	}
+
+	public String getMessage() {
 		return this.message;
 	}
 
-	public int getTxt() {
-		return this.messageId;
+	public Date getDatetime() {
+		return this.datetime;
 	}
 
-	public String getDTM() {
-		return this.message;
-	}
-
-	public String getIDU() {
-		return this.message;
+	public int getUserID() {
+		return this.userID;
 	}
 	///////////////////// END /////////////////////
 }

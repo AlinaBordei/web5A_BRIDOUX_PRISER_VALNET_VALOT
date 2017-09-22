@@ -48,4 +48,8 @@ public class UserConversationRepository {
 
 		return userConversation;
 	}
+	
+	public int addUserConversation(int userId, int conversationId) {
+		return jdbcTemplate.update("INSERT INTO user_conversation(conversationID, userID) VALUES(?,?)", conversationId, userId);
+	}
 }

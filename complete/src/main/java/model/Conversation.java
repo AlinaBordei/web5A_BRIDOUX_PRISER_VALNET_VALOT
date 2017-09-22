@@ -13,11 +13,11 @@ public class Conversation {
 		this.conversationId = conversationId;
 	}
 
-	public void setIde(int idConversation) {
+	public void setIdConversation(int idConversation) {
 		this.conversationId = idConversation;
 	}
 
-	public int getIde() {
+	public int getIdConversation() {
 		return this.conversationId;
 	}
 }
