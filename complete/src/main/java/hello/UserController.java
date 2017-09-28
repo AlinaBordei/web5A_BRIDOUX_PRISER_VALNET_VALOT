@@ -38,6 +38,7 @@ public class UserController {
     public @ResponseBody int addUserJson(@RequestBody User user) {
     	String name = user.getUserName();
     	String password = user.getPassword();
+    	password = user.hashPassword(password);
     	String mail = user.getMail();
       //Return 1 when it's ok
     	return userRepo.addUser(name, password, mail);

@@ -1,5 +1,8 @@
 package model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class User {
 
 	protected int userId;
@@ -25,6 +28,22 @@ public class User {
 	public String toString() {
 		return String.format("User[userId=%d, username='%s', password='%s', mail='%s']", userId, userName, password,
 				mail);
+	}
+	
+	public String hashPassword(String password) {
+		MessageDigest messageDigest;
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-256");
+			messageDigest.update(password.getBytes());
+			String encryptedString = new String(messageDigest.digest());
+			return encryptedString;
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+		
+		
 	}
 
 	public void setUserId(int userId) {
