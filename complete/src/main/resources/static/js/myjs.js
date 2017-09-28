@@ -1,3 +1,4 @@
+alert("koko");
 $(document).ready(function() {
 	
 	$( "#signup-btn" ).click(function() {
@@ -77,4 +78,4 @@ $(document).ready(function() {
 	    $("#toasted").append(text);
 	    $("#toasted").css( "visibility", "show" );
 	}
-});
+
