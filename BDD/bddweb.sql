@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 19 Septembre 2017 à 09:13
+-- Généré le :  Jeu 28 Septembre 2017 à 19:05
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -30,6 +30,13 @@ CREATE TABLE `conversation` (
   `IDConversation` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `conversation`
+--
+
+INSERT INTO `conversation` (`IDConversation`) VALUES
+(1);
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +50,13 @@ CREATE TABLE `message` (
   `id_conversation` int(11) NOT NULL,
   `userID` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `message`
+--
+
+INSERT INTO `message` (`IDMessage`, `message`, `date`, `id_conversation`, `userID`) VALUES
+(1, 'L\'inspiration me manque pour faire ce test, je sais, je suis désespérante...', '2017-09-21 10:21:25', 1, 6);
 
 -- --------------------------------------------------------
 
@@ -68,7 +82,10 @@ INSERT INTO `user` (`id`, `name`, `password`, `mail`) VALUES
 (4, 'Josh', 'Bloch', ''),
 (5, 'Josh', 'Long', ''),
 (6, 'claraouu', 'youpi', 'calara.bridoux@gmail'),
-(7, 'coco', 'coco', 'coco@coco');
+(7, 'coco', 'coco', 'coco@coco'),
+(9, 'Gilbert', 'azerty', 'jaime.latouraine@gmail.com'),
+(21, 'Gilbert', 'tutyu', 'mementomori77160@hotmail.fr'),
+(20, 'Gilbert', 'jujtyj', 'mementomori77160@hotmail.fr');
 
 -- --------------------------------------------------------
 
@@ -80,6 +97,13 @@ CREATE TABLE `user_conversation` (
   `conversationID` int(11) NOT NULL,
   `userID` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `user_conversation`
+--
+
+INSERT INTO `user_conversation` (`conversationID`, `userID`) VALUES
+(1, 6);
 
 --
 -- Index pour les tables exportées
@@ -112,12 +136,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `IDConversation` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDConversation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `IDMessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
