@@ -37,13 +37,13 @@ $(document).ready(function() {
 		$( "#signin-form" ).show(200);
 	});
 	
-	$( "#btn-send-msg" ).click(function() {
+	/*$( "#btn-send-msg" ).click(function() {
 		
 		$clone = $("#recieved").clone().attr('id','').show();
 		$("p", $clone).text($('#msg').val());
 		$clone.appendTo(".chat-list");
 		$("#msg").val('');
-	});
+	});*/
 
 });
 
@@ -79,3 +79,42 @@ $(document).ready(function() {
 	    $("#toasted").css( "visibility", "show" );
 	}
 
+	
+var stompClient = null;
+
+function connect() {
+    var socket = new SockJS('/gs-guide-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/message', function (message) {
+        	console.log(message);
+        	showMessage(JSON.parse(message.body).message);
+        });
+    });
+}
+
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    console.log("Disconnected");
+}
+
+function sendMessage() {
+    stompClient.send("/app/message", {}, JSON.stringify({'message': $("#msg").val()}));
+}
+
+function showMessage(message) {
+    //$("#greetings").append("<tr><td>" + message + "</td></tr>");
+    $clone = $("#recieved").clone().attr('id','').show();
+	$("p", $clone).text(message);
+	$clone.appendTo(".chat-list");
+	$("#msg").val('');
+}
+
+$(function () {
+    $( "#signin-btn" ).click(function() { connect(); });
+    $( "#disconnect" ).click(function() { disconnect(); });
+    $( "#btn-send-msg" ).click(function() { sendMessage(); });
+});

@@ -14,6 +14,8 @@
 	<script type="text/javascript" src="/js/tether.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	<script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script type="text/javascript" src="/js/myjs.js"></script>
 
 	<title>WhatsUp</title>
@@ -30,7 +32,7 @@
 		<div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item" id="btn-disconnect" style="display: none;">
-					<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Déconnexion</button>
+					<button id="disconnect" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Déconnexion</button>
 				</li>
 			</ul>
 		</div>

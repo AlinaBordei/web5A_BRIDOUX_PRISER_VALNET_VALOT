@@ -127,6 +127,7 @@ body{
 .chat-body1 p {
     background: #fbf9fa none repeat scroll 0 0;
     padding: 10px;
+    white-space:pre;
 }
 
 .message_write {
