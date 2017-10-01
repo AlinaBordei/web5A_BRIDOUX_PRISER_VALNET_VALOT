@@ -16,7 +16,7 @@ public class Message {
 		this.messageId = 0;
 		this.conversationID = 0;
 		this.message = null;
-		this.datetime = null;
+		this.datetime = new Date();
 		this.userID = 0;
 	}
 

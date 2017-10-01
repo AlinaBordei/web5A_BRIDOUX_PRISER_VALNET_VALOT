@@ -35,4 +35,12 @@ public class MessageRepository {
 	public int addMessage(int conversationID, String message, Date datetime, int userID) {
 		return jdbcTemplate.update("INSERT INTO message(message, date, id_conversation, userID) VALUES(?,?,?,?)", message, datetime, conversationID, userID);
 	}
+	
+	public int addMessage(Message msg) {
+    	int conversationID = msg.getConversationID();
+    	String message = msg.getMessage();
+    	Date datetime = msg.getDatetime();
+    	int userID = msg.getUserID();
+    	return addMessage(conversationID, message, datetime, userID);
+    }
 }
