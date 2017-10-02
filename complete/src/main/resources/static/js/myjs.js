@@ -45,6 +45,19 @@ $(document).ready(function() {
 		$("#msg").val('');
 	});*/
 
+	$("#toUser").keyup(function(e) {
+		var toUser = $("#toUser").val();
+		if(toUser != ""){
+			searchUser(toUser);
+		}else{
+			$("#userNameList").empty();
+		}
+		if(e.keyCode === 8){
+			searchUser(toUser);
+		}
+		
+	});
+
 });
 
 
@@ -70,6 +83,25 @@ $(document).ready(function() {
 		}).done(function(){
 			alert("Tu es enregistré !");	
 			//toast("Bien inscrit(e) !");
+		});	
+	}
+	
+	function searchUser(dataString){
+		$.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "GET",
+		  url: "http://localhost:8080/findUser/" + dataString,
+		  success:function(data)
+		    {
+		        $("#userNameList").empty();
+		        $.each(data, function(i, index){
+		        	$("#userNameList").append('<option id="'+index.userId+'">'+index.userName+'</option>');
+		        });
+		        	
+		    } 
 		});	
 	}
 	
