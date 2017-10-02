@@ -1,4 +1,3 @@
-alert("koko");
 $(document).ready(function() {
 	
 	$( "#signup-btn" ).click(function() {

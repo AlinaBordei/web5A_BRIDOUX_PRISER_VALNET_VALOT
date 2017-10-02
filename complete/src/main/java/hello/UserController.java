@@ -29,7 +29,7 @@ public class UserController {
     //Get user by id
     @GetMapping("/usersById/{id}")
     public @ResponseBody User userById(@PathVariable("id") Integer id) {
-    	userRepo.validateUser(id);
+    	//userRepo.validateUser(id);
     	return userRepo.userById(id);
     }
     
