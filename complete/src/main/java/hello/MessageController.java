@@ -23,7 +23,10 @@ public class MessageController {
     @MessageMapping("/message")
     @SendTo("/topic/message")
     public Message transferMessage(Message message) throws Exception {
-    	messageRepo.addMessage(message);
+    	int conversationID = message.getConversationID();
+    	String msg = message.getMessage();
+    	int userID = message.getUserID();
+    	messageRepo.addMessage(conversationID, msg, userID);
         return message;
     }
 
