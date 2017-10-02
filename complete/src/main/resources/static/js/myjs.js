@@ -43,19 +43,40 @@ $(document).ready(function() {
 		$clone.appendTo(".chat-list");
 		$("#msg").val('');
 	});*/
-
+	
+	//Search someone
 	$("#toUser").keyup(function(e) {
 		var toUser = $("#toUser").val();
+		//If what I'm writting or deleting is not empty...
 		if(toUser != ""){
+			//...I search the begining of the name in the database 
 			searchUser(toUser);
+		//Otherwise I clean the list option
 		}else{
 			$("#userNameList").empty();
 		}
+		//If I delete what I'm writting...
 		if(e.keyCode === 8){
+			//...I search the begining of the name in the database 
 			searchUser(toUser);
 		}
 		
 	});
+	
+	//When I select a name in the list of addressees
+	$('#userNameList').change(function(){
+		//Getting value selected
+		var userNameSelected = $('#userNameList option:selected').val();
+		//If I selected an option which is not the first (the empty one)...
+		if(userNameSelected != ""){
+			//...I put the name into the input of addressees
+			$("#toUser").val(userNameSelected);
+		//Otherwise I clear it
+		}else{
+			$("#toUser").val("");
+		}
+	});
+	
 
 });
 
@@ -96,6 +117,7 @@ $(document).ready(function() {
 		  success:function(data)
 		    {
 		        $("#userNameList").empty();
+		        $("#userNameList").append('<option id=""></option>');
 		        $.each(data, function(i, index){
 		        	$("#userNameList").append('<option id="'+index.userId+'">'+index.userName+'</option>');
 		        });
