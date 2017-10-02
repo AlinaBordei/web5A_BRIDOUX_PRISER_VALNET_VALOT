@@ -43,4 +43,12 @@ public class UserController {
       //Return 1 when it's ok
     	return userRepo.addUser(name, password, mail);
     }
+    
+  //Insert new user(json) 
+    @RequestMapping(value="/findUser",method=RequestMethod.GET)
+    public @ResponseBody List<User> findUser(@RequestBody User user) {
+    	String name = user.getUserName();
+      //Return 1 when it's ok
+    	return userRepo.findUser(name);
+    }
 }

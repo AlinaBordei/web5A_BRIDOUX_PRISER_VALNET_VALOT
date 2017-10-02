@@ -38,6 +38,18 @@ public class UserRepository {
 	    return users;
 	}
 	
+	public List<User> findUser(String nameBegining) {
+	    List<User> users = new ArrayList<User>();
+	    nameBegining = nameBegining + "%";
+	    
+	    users = jdbcTemplate.query(
+                "SELECT * FROM user WHERE name like ?", new Object[] { nameBegining },
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
+        );
+	    
+	    return users;
+	}
+	
 	public User userById(int id) {
 		List<User> user = new ArrayList<User>();
 		
