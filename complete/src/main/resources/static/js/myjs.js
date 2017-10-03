@@ -49,6 +49,17 @@ $(document).ready(function() {
 		var toUser = $("#toUser").val();
 		//If what I'm writting or deleting is not empty...
 		if(toUser != ""){
+			//I'm looking for ";"
+			var testSeveralAddressees = toUser.indexOf(";"); 
+			//If there are ";" into the input, this means I've already found someone
+			if(testSeveralAddressees > 0){
+				//I separate all contacts get from the input, the result is an array
+				var splitResult = toUser.split(";");
+				//I get the array size
+				var idEndOfTheSplit = Object.keys(splitResult).length;
+				//The research will be for the last contact
+				toUser = splitResult[idEndOfTheSplit-1];
+			}
 			//...I search the begining of the name in the database 
 			searchUser(toUser);
 		//Otherwise I clean the list option
@@ -69,11 +80,37 @@ $(document).ready(function() {
 		var userNameSelected = $('#userNameList option:selected').val();
 		//If I selected an option which is not the first (the empty one)...
 		if(userNameSelected != ""){
-			//...I put the name into the input of addressees
-			$("#toUser").val(userNameSelected);
+			//...I get the text into the input to search someone,
+			var textInputToUser = $("#toUser").val();
+			//I'm looking for ";"
+			var testSeveralAddressees = textInputToUser.indexOf(";"); 
+			//I clear the input
+			$("#toUser").empty();
+			//If there are ";" into the input, this means I've already found someone
+			if(testSeveralAddressees > 0){
+				//I separate all contacts get from the input, the result is an array
+				var splitResult = textInputToUser.split(";");
+				//I get the array size
+				var idEndOfTheSplit = Object.keys(splitResult).length;
+				//I clear the last research of the input
+				splitResult[idEndOfTheSplit-1] = "";
+				//String reformat
+				textInputToUser = splitResult.join(";"); 
+				//Then, I add new contact to the list in the input
+				$("#toUser").val(textInputToUser + userNameSelected + ";");
+			//Otherwise, it's my first contact
+			}else{
+				//and I add it in the input whith an ";" at the end for the next contact to add
+				$("#toUser").val(userNameSelected + ";");
+			}
+			//I clear the list of results
+			$("#userNameList").empty();
 		//Otherwise I clear it
 		}else{
+			//I clear the input
 			$("#toUser").val("");
+			//I clear the list of results
+			$("#userNameList").empty();
 		}
 	});
 	
