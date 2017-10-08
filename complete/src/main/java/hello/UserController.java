@@ -49,4 +49,9 @@ public class UserController {
       //Return 1 when it's ok
     	return userRepo.findUser(userName);
     }
+    
+    @GetMapping("/isUserExist/{userName}")
+    public @ResponseBody String isUserExist(@PathVariable("userName") String userName) {
+    	return userRepo.isUserExist(userName);
+    }
 }

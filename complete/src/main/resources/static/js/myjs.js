@@ -6,7 +6,13 @@ $(document).ready(function() {
 		var email = $("#mail").val();
 
 		var dataString = {userName:uname, password:pwd, mail:email};
-		addNewUser(dataString);
+		var testIsUserExist = isUserExist(uname);
+		if(testIsUserExist === "true"){
+			$("#errorNameAlreadyExist").empty();
+			$("#errorNameAlreadyExist").append("Oooops ! This name already exists. Choose another one please.");
+		}else{
+			addNewUser(dataString);
+		}
 		/*$( "#signup-form" ).hide();
 		$( "#signin-form" ).fadeIn(200);*/
 	});
@@ -141,6 +147,22 @@ $(document).ready(function() {
 			alert("Tu es enregistré !");	
 			//toast("Bien inscrit(e) !");
 		});	
+	}
+	
+	function isUserExist(dataString){
+		var bodyContent = $.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "GET",
+		  url: "http://localhost:8080/isUserExist/" + dataString,
+		  global: false,
+	        crossDomain: true,
+	        cache: false,
+	        async: false
+	    }).responseText;
+	    return bodyContent;
 	}
 	
 	function searchUser(dataString){

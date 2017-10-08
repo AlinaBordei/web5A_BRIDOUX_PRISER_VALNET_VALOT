@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -63,6 +64,23 @@ public class UserRepository {
 	
 	public int addUser(String name, String password, String mail) {
 		return jdbcTemplate.update("INSERT INTO user(name, password, mail) VALUES(?,?,?)", name, password, mail);
+	}
+	
+	public String isUserExist(String name) {
+		
+	    List<User> users = new ArrayList<User>();
+	    name = name + "%";
+	    //try {
+		    users = jdbcTemplate.query(
+	                "SELECT * FROM user WHERE name like ?", new Object[] { name },
+	                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
+	        );
+		    if(users.size() == 0) {
+		    	return "false";
+		    }else {
+		    	return "true";
+		    }
+	    
 	}
 	
 	/*public void validateUser(int id) {
