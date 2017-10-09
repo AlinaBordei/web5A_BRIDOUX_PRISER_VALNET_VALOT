@@ -7,10 +7,34 @@ $(document).ready(function() {
 
 		var dataString = {userName:uname, password:pwd, mail:email};
 		var testIsUserExist = isUserExist(uname);
-		if(testIsUserExist === "true"){
-			$("#errorNameAlreadyExist").empty();
-			$("#errorNameAlreadyExist").append("Oooops ! This name already exists. Choose another one please.");
+		
+		if(uname === ""){
+			$("#errorName").empty();
+			$("#errorName").append("Hep ! We need a name please.");
+		}
+		if(pwd === ""){
+			$("#errorPasswordNull").empty();
+			$("#errorPasswordNull").append("Hep ! We need a password please.");
 		}else{
+			$("#errorPasswordNull").empty();
+		}
+		if(email === ""){
+			$("#errorEmailNull").empty();
+			$("#errorEmailNull").append("Hep ! We need an email please.");
+		}else{
+			$("#errorEmailNull").empty();
+		}
+		if(testIsUserExist === "true"){
+			$("#errorName").empty();
+			$("#errorName").append("Oooops ! This name already exists. Choose another one please.");
+		}else{
+			$("#errorName").empty();
+		}
+		
+		if(uname !== "" & pwd !== "" & email !== ""){
+			$("#errorPasswordNull").empty();
+			$("#errorName").empty();
+			$("#errorEmailNull").empty();
 			addNewUser(dataString);
 		}
 		/*$( "#signup-form" ).hide();
