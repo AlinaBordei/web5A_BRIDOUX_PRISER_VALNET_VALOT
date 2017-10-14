@@ -76,6 +76,7 @@ $(document).ready(function() {
 	
 	//Search someone
 	$("#toUser").keyup(function(e) {
+		$("#errorMessageAdressees").empty();
 		var toUser = $("#toUser").val();
 		//If what I'm writting or deleting is not empty...
 		if(toUser != ""){
@@ -143,11 +144,42 @@ $(document).ready(function() {
 			$("#userNameList").empty();
 		}
 	});
-	
 
 });
 
-
+function getAdressees(){
+	//List of contacts
+	var adresseesArray = new Array();
+	//Getting the input value
+	var textInputToUser = $("#toUser").val();
+	//If the input is empty...
+	if(textInputToUser === ""){
+		//Error message displayed.
+		$("#errorMessageAdressees").append("Enter adressee(s) please...");
+	}else{
+		//I'm looking for ";"
+		var testSeveralAddressees = textInputToUser.indexOf(";"); 
+		//If there are ";" into the input, this means I've already found someone
+		if(testSeveralAddressees > 0){
+			//I separate all contacts get from the input, the result is an array
+			var splitResult = textInputToUser.split(";");
+			//I get the array size
+			var idEndOfTheSplit = Object.keys(splitResult).length;
+			//Append each contact into the list
+			var i = 0;
+			for(i = 0; i<idEndOfTheSplit; i++){
+				if(splitResult[i] !== ""){
+					adresseesArray.push(splitResult[i]);
+				}
+			}
+		//Otherwise, it's my only contact,
+		}else{
+			//and I add it into the list
+			adresseesArray.push(textInputToUser);
+		}
+	}
+	return adresseesArray;
+}
 	/*<li class="left clearfix">
 		<span class="pull-left">
 			<img src="/pictures/alina.JPG">
