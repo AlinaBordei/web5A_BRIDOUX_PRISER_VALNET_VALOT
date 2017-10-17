@@ -144,10 +144,15 @@ $(document).ready(function() {
 			$("#userNameList").empty();
 		}
 	});
+	
+	$( "#signup-test" ).click(function() {
+		var test = getAdressees(6);
+		console.log(test);
+	});
 
 });
 
-function getAdressees(){
+function getAdressees(idConv){
 	//List of contacts
 	var adresseesArray = new Array();
 	//Getting the input value
@@ -159,6 +164,7 @@ function getAdressees(){
 	}else{
 		//I'm looking for ";"
 		var testSeveralAddressees = textInputToUser.indexOf(";"); 
+		var dataString;
 		//If there are ";" into the input, this means I've already found someone
 		if(testSeveralAddressees > 0){
 			//I separate all contacts get from the input, the result is an array
@@ -170,12 +176,15 @@ function getAdressees(){
 			for(i = 0; i<idEndOfTheSplit; i++){
 				if(splitResult[i] !== ""){
 					adresseesArray.push(splitResult[i]);
+					var idUser = findIdUser(splitResult[i], idConv);
 				}
 			}
 		//Otherwise, it's my only contact,
 		}else{
 			//and I add it into the list
 			adresseesArray.push(textInputToUser);
+			dataString = {userId:textInputToUser,conversationId:idConv};
+			addAdresseesToConversation(dataString);
 		}
 	}
 	return adresseesArray;
@@ -205,6 +214,19 @@ function getAdressees(){
 		});	
 	}
 	
+	function addAdresseesToConversation(dataString){
+		$.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "POST",
+		  url: "http://localhost:8080/addUserConversation",
+		  data: JSON.stringify(dataString),
+		  dataType: 'json'
+		});	
+	}
+	
 	function isUserExist(dataString){
 		var bodyContent = $.ajax({
 		  headers:{
@@ -213,6 +235,28 @@ function getAdressees(){
 		  },
 		  type: "GET",
 		  url: "http://localhost:8080/isUserExist/" + dataString,
+		  global: false,
+	        crossDomain: true,
+	        cache: false,
+	        async: false
+	    }).responseText;
+	    return bodyContent;
+	}
+	
+	function findIdUser(dataString, idConv){
+		var bodyContent = $.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "GET",
+		  url: "http://localhost:8080/findUserId/" + dataString,
+		  success:function(data)
+		    {
+		        	dataString = {userId:data.userId,conversationId:idConv};
+					addAdresseesToConversation(dataString);
+		        	
+		    },
 		  global: false,
 	        crossDomain: true,
 	        cache: false,

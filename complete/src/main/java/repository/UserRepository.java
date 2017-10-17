@@ -4,18 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import model.Login;
 import model.User;
-import exception.UserNotFoundException;
 
 @Repository
 @Named
@@ -49,6 +45,17 @@ public class UserRepository {
         );
 	    
 	    return users;
+	}
+	
+	public User findUserId(String nameBegining) {
+	    List<User> users = new ArrayList<User>();
+	    
+	    users = jdbcTemplate.query(
+                "SELECT * FROM user WHERE name = ?", new Object[] { nameBegining },
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
+        );
+	    
+	    return users.get(0);
 	}
 	
 	public User userById(int id) {

@@ -21,19 +21,17 @@ public class UserConversationController {
 	@Inject
 	UserConversationRepository userConversationRepo;
 	
-	//Get all users
+	//Get all users conversations
     @GetMapping("/allUsersConversations")
     public @ResponseBody List<UserConversation> allUserConversation() {
     	return userConversationRepo.allUserConversation();
     }
     
-    //Get user by id
     @GetMapping("/userConversationByUser/{id}")
     public @ResponseBody List<UserConversation> userConversationByUser(@PathVariable("id") Integer id) {
     	return userConversationRepo.userConversationByUser(id);
     }
     
-  //Get user by id
     @GetMapping("/userConversationById/{id}")
     public @ResponseBody List<UserConversation> userConversationById(@PathVariable("id") Integer id) {
     	return userConversationRepo.userConversationById(id);

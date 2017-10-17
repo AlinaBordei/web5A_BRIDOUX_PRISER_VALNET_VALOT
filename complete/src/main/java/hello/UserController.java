@@ -50,6 +50,12 @@ public class UserController {
     	return userRepo.findUser(userName);
     }
     
+    @GetMapping("/findUserId/{userName}")
+    public @ResponseBody User findUserId(@PathVariable("userName") String userName) {
+      //Return 1 when it's ok
+    	return userRepo.findUserId(userName);
+    }
+    
     @GetMapping("/isUserExist/{userName}")
     public @ResponseBody String isUserExist(@PathVariable("userName") String userName) {
     	return userRepo.isUserExist(userName);
