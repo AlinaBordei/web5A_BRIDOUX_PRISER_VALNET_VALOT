@@ -32,10 +32,16 @@ public class ConversationController {
     	return convRepo.conversationById(id);
     }
     
-  //Insert new user(json) 
+    //Insert new conversation 
     @RequestMapping(value="/addConversation",method=RequestMethod.POST)
     public @ResponseBody int addConversation() {
       //Return 1 when it's ok
     	return convRepo.addConversation();
+    }
+    
+   //Get last conversation
+    @GetMapping("/lastConversationCreated")
+    public @ResponseBody Conversation lastConversationCreated() {
+    	return convRepo.lastConversationCreated();
     }
 }

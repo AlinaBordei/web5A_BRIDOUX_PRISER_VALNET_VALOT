@@ -43,4 +43,13 @@ public class ConversationRepository {
 	public int addConversation() {
 		return jdbcTemplate.update("INSERT INTO conversation() VALUES()");
 	}
+	
+	public Conversation lastConversationCreated() {
+		List<Conversation> conversation = new ArrayList<Conversation>();
+
+		conversation = jdbcTemplate.query("SELECT LAST_INSERT_ID() FROM conversation",
+				(rs, rowNum) -> new Conversation(rs.getInt("IDConversation")));
+
+		return conversation.get(0);
+	}
 }

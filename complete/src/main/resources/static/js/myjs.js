@@ -149,6 +149,10 @@ $(document).ready(function() {
 		var test = getAdressees(6);
 		console.log(test);
 	});
+	
+	$("#newConv").click(function() {
+		newConversation();
+	});
 
 });
 
@@ -282,6 +286,17 @@ function getAdressees(idConv){
 		        });
 		        	
 		    } 
+		});	
+	}
+	
+	function newConversation(){
+		$.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "POST",
+		  url: "http://localhost:8080/addConversation" 
 		});	
 	}
 	
