@@ -41,7 +41,7 @@ public class ConversationController {
     
    //Get last conversation
     @GetMapping("/lastConversationCreated")
-    public @ResponseBody Conversation lastConversationCreated() {
+    public @ResponseBody int lastConversationCreated() {
     	return convRepo.lastConversationCreated();
     }
 }

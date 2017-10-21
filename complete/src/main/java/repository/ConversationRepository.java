@@ -44,12 +44,12 @@ public class ConversationRepository {
 		return jdbcTemplate.update("INSERT INTO conversation() VALUES()");
 	}
 	
-	public Conversation lastConversationCreated() {
+	public int lastConversationCreated() {
 		List<Conversation> conversation = new ArrayList<Conversation>();
 
-		conversation = jdbcTemplate.query("SELECT LAST_INSERT_ID() FROM conversation",
-				(rs, rowNum) -> new Conversation(rs.getInt("IDConversation")));
+		conversation = jdbcTemplate.query("SELECT MAX(IDConversation) FROM conversation",
+				(rs, rowNum) -> new Conversation(rs.getInt("MAX(IDConversation)")));
 
-		return conversation.get(0);
+		return conversation.get(0).getIdConversation();
 	}
 }

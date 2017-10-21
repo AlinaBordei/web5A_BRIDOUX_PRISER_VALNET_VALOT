@@ -1,3 +1,5 @@
+var idConversationCourante;
+
 $(document).ready(function() {
 	
 	$( "#signup-btn" ).click(function() {
@@ -152,6 +154,8 @@ $(document).ready(function() {
 	
 	$("#newConv").click(function() {
 		newConversation();
+		idConversationCourante = lastIdConv();
+		alert(idConversationCourante);
 	});
 
 });
@@ -298,6 +302,22 @@ function getAdressees(idConv){
 		  type: "POST",
 		  url: "http://localhost:8080/addConversation" 
 		});	
+	}
+	
+	function lastIdConv(){
+		var bodyContent = $.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "GET",
+		  url: "http://localhost:8080/lastConversationCreated",
+		  global: false,
+	        crossDomain: true,
+	        cache: false,
+	        async: false
+	    }).responseText;
+	    return bodyContent;
 	}
 	
 	function toast(text) {
