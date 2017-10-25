@@ -154,12 +154,21 @@ $(document).ready(function() {
 	});
 	
 	$("#newConv").click(function() {
+		$("#searchAdressees").show();
+	});
+	
+	$("#validateAdressees").click(function() {
 		newConversation();
 		idConversationCourante = lastIdConv();
 		alert(idConversationCourante);
+		var test = getAdressees(idConversationCourante);
+		console.log(test);
+		//Ajouter à la liste des conv sur la gauche
 	});
 	
-	$(".list_conv li").click(function() {
+	$(".list_conv li").click(function(event) {
+		event.preventDefault();
+		alert("COCO");
         var select = $(this);
         var id = select.attr('id');
 			//I separate all contacts get from the input, the result is an array
@@ -173,13 +182,16 @@ $(document).ready(function() {
 					id=splitResult[i];
 					getMessageFromConversation(id);
 					idConversationCourante = id;
+					alert(idConversationCourante);
 				}
 			}
+			
 	});
 	
 	$( "#signin-btn" ).click(function(event) { /*connect();*/ 
 		event.preventDefault();
 		authentification({mail:$("#inputEmail").val(),password:$("#inputPassword").val()});
+		connect();
 	});
 
 });
@@ -211,6 +223,8 @@ function getAdressees(idConv){
 				if(splitResult[i] !== ""){
 					adresseesArray.push(splitResult[i]);
 					var idUser = findIdUser(splitResult[i], idConv);
+					dataString = {userId:idUser,conversationId:idConv};
+					addAdresseesToConversation(dataString);
 				}
 			}
 		//Otherwise, it's my only contact,
@@ -220,6 +234,9 @@ function getAdressees(idConv){
 			dataString = {userId:textInputToUser,conversationId:idConv};
 			addAdresseesToConversation(dataString);
 		}
+		//I include myself in the conversation
+		dataString = {userId:idUserAuthentificated,conversationId:idConv};
+		addAdresseesToConversation(dataString);
 	}
 	return adresseesArray;
 }
@@ -440,7 +457,7 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/app/message", {}, JSON.stringify({'message': $("#msg").val(), 'conversationID':6, 'userID':9}));
+    stompClient.send("/app/message", {}, JSON.stringify({'message': $("#msg").val(), 'conversationID':idConversationCourante, 'userID':idUserAuthentificated}));
 }
 
 function showMessage(message) {

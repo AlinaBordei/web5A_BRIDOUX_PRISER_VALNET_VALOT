@@ -219,15 +219,13 @@
 			
 			<div id="conversation" class="col-sm-12 col-md-8 col-lg-9" align="left">
 				
-				<div class="search_contact input-group">
+				<div class="search_contact input-group" id="searchAdressees" style="display:none">
 					<span class="input-group-addon">À</span>
 					<input id="toUser" type="text" class="form-control" placeholder="Saisissez le nom d'un destinataire...">
 					<select id="userNameList"></select>
+					<input id="validateAdressees" type="submit" class="btn btn-primary" value="Valider" style="margin-left:2px"></input>
 				</div>
 				<div class="errorForm" id="errorMessageAdressees"></div>
-				<div>
-					<input id="signup-test" type="submit" class="btn btn-primary" value="TEST"></input>
-				</div>
 				<div class="chat_area">
 					<ul class="chat-list list-unstyled">
 						<li id="recieved" class="left clearfix hide">
