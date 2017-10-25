@@ -25,8 +25,8 @@ public class MessageRepository {
 	public List<Message> messageByConversationId(int conversationID) {
 		List<Message> messages = new ArrayList<Message>();
 
-		messages = jdbcTemplate.query("SELECT * FROM message WHERE id_conversation = ?", new Object[] { conversationID },
-				(rs, rowNum) -> new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getDate("date"), rs.getInt("userID")));
+		messages = jdbcTemplate.query("SELECT * FROM message WHERE id_conversation = ? order by date ASC", new Object[] { conversationID },
+				(rs, rowNum) -> new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getTimestamp("date"), rs.getInt("userID")));
 
 		return messages;
 	}

@@ -60,4 +60,9 @@ public class UserController {
     public @ResponseBody String isUserExist(@PathVariable("userName") String userName) {
     	return userRepo.isUserExist(userName);
     }
+    
+    @RequestMapping(value="/authUser",method=RequestMethod.POST)
+    public @ResponseBody String authUserJson(@RequestBody User user) {
+    	return userRepo.authentification(user);
+    }
 }

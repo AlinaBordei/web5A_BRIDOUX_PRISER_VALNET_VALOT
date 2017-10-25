@@ -54,12 +54,12 @@ $(document).ready(function() {
 		$( "#signin-form" ).fadeIn(200);
 	});
 
-	$( "#signin-btn" ).click(function() {
+	/*$( "#signin-btn" ).click(function() {
 		$( "#signup-form" ).hide();
 		$( "#signin-form" ).hide();
 		$( "#message-ui" ).show();
 		$( "#btn-disconnect" ).fadeIn(200);
-	});
+	});*/
 
 	$( "#btn-disconnect" ).click(function() {
 		$( "#signup-form" ).hide();
@@ -157,8 +157,32 @@ $(document).ready(function() {
 		idConversationCourante = lastIdConv();
 		alert(idConversationCourante);
 	});
+	
+	$(".list_conv li").click(function() {
+        var select = $(this);
+        var id = select.attr('id');
+			//I separate all contacts get from the input, the result is an array
+			var splitResult = id.split("idConv_");
+			//I get the array size
+			var idEndOfTheSplit = Object.keys(splitResult).length;
+			//Append each contact into the list
+			var i = 0;
+			for(i = 0; i<idEndOfTheSplit; i++){
+				if(splitResult[i] !== ""){
+					id=splitResult[i];
+					getMessageFromConversation(id);
+					idConversationCourante = id;
+				}
+			}
+	});
+	
+	$( "#signin-btn" ).click(function() { /*connect();*/ 
+		authentification({mail:$("#inputEmail").val(),password:$("#inputPassword").val()}); 
+	});
 
 });
+
+/**FUNCTIONS**/
 
 function getAdressees(idConv){
 	//List of contacts
@@ -320,6 +344,26 @@ function getAdressees(idConv){
 	    return bodyContent;
 	}
 	
+	function getMessageFromConversation(id){
+		$.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "GET",
+		  url: "http://localhost:8080/messageByConversationId/" + id,
+		  success:function(data)
+		    {
+			    $(".chat-list").empty();
+		        $.each(data, function(i, index){
+		        	console.log(index);
+		        	$(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body1 clearfix"><p>'+index.message+'</p><div class="chat_time pull-right"><small>'+index.sdf+'</small></div></div></li>');
+		        });
+		        	
+		    } 
+		});	
+	}
+	
 	function toast(text) {
 	    $("#toasted").empty();
 	    $("#toasted").append(text);
@@ -341,6 +385,35 @@ function connect() {
     });
 }
 
+function authentification(dataString){
+	$.ajax({
+	  headers:{
+		  'Accept': 'application/json',
+		  'Content-Type': 'application/json'
+	  },
+	  type: "POST",
+	  url: "http://localhost:8080/authUser",
+	  data: JSON.stringify(dataString),
+	  dataType: 'json',
+	  success:function(data)
+	    {
+		    if(data == false){
+		    	alert("Mauvais identifiants !");
+		    }
+		    if(data == true){
+		    	alert("Bienvenue !");
+		    	//$( "#signup-form" ).hide();
+				//$( "#signin-form" ).hide();
+				$("#signinup").hide();
+				$("#message-ui").show();
+				//$("#message-ui").css("display","block");
+				//$( "#btn-disconnect" ).fadeIn(200);
+		    }
+	        	
+	    }
+	});	
+}
+
 function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
@@ -349,19 +422,30 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/app/message", {}, JSON.stringify({'message': $("#msg").val()}));
+    stompClient.send("/app/message", {}, JSON.stringify({'message': $("#msg").val(), 'conversationID':6, 'userID':9}));
 }
 
 function showMessage(message) {
     //$("#greetings").append("<tr><td>" + message + "</td></tr>");
+	var dt = new Date();
+	var h = dt.getHours();
+	if(h < 10){
+		h = "0" + h;
+	}
+	var m = dt.getMinutes();
+	if(m < 10){
+		m = "0" + m;
+	}
+	var time = h + ":" + m;
     $clone = $("#recieved").clone().attr('id','').show();
 	$("p", $clone).text(message);
+	$("small", $clone).text(time);
 	$clone.appendTo(".chat-list");
 	$("#msg").val('');
 }
 
 $(function () {
-    $( "#signin-btn" ).click(function() { connect(); });
+    
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#btn-send-msg" ).click(function() { sendMessage(); });
 });

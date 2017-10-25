@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -9,23 +11,28 @@ public class Message {
 	protected int messageId;
 	protected int conversationID;
 	protected String message;
-	protected Date datetime;
+	//protected Date datetime;
+	protected Timestamp datetime;
+	protected String sdf;
+	//protected String datetime;
 	protected int userID;
 
 	public Message() {
 		this.messageId = 0;
 		this.conversationID = 0;
 		this.message = null;
-		this.datetime = new Date();
+		//this.datetime = new Date();
+		this.datetime = new Timestamp(System.currentTimeMillis());
 		this.userID = 0;
 	}
 
-	public Message(int messageId, int conversationID, String message, Date datetime, int userID) {
+	public Message(int messageId, int conversationID, String message, Timestamp datetime, int userID) {
 		this.messageId = messageId;
 		this.conversationID = conversationID;
 		this.message = message;
-		this.datetime = datetime;
+		//this.datetime = datetime;
 		this.userID = userID;
+		setSdf(datetime);
 	}
 
 	///////////////////// SET /////////////////////
@@ -41,7 +48,15 @@ public class Message {
 		this.message = message;
 	}
 
-	public void setDatetime(Date datetime) {
+	/*public void setDatetime(Date datetime) {
+		this.datetime = datetime;
+	}*/
+	
+	public void setSdf(Timestamp datetime) {
+		this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(datetime.getTime());
+	}
+	
+	public void setDatetime(Timestamp datetime) {
 		this.datetime = datetime;
 	}
 
@@ -61,8 +76,16 @@ public class Message {
 	public String getMessage() {
 		return this.message;
 	}
+	
+	public String getSdf() {
+		return this.sdf;
+	}
 
-	public Date getDatetime() {
+	/*public Date getDatetime() {
+		return this.datetime;
+	}*/
+	
+	public Timestamp getDatetime() {
 		return this.datetime;
 	}
 

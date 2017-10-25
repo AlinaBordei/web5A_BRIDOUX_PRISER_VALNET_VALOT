@@ -90,6 +90,25 @@ public class UserRepository {
 	    
 	}
 	
+public String authentification(User user) {
+		
+	    List<User> users = new ArrayList<User>();
+	    //String pwd = user.hashPassword(user.getPassword());
+	    String pwd = user.getPassword();
+	    String mail = user.getMail();
+	    //try {
+		    users = jdbcTemplate.query(
+	                "SELECT * FROM user WHERE mail = ? and password = ?", new Object[] { mail, pwd },
+	                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
+	        );
+		    if(users.size() == 0) {
+		    	return "false";
+		    }else {
+		    	return "true";
+		    }
+	    
+	}
+	
 	/*public void validateUser(int id) {
 		List<User> user = new ArrayList<User>();
 		User test = new User();
