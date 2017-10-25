@@ -1,4 +1,5 @@
 var idConversationCourante;
+var idUserAuthentificated = 0;
 
 $(document).ready(function() {
 	
@@ -176,8 +177,9 @@ $(document).ready(function() {
 			}
 	});
 	
-	$( "#signin-btn" ).click(function() { /*connect();*/ 
-		authentification({mail:$("#inputEmail").val(),password:$("#inputPassword").val()}); 
+	$( "#signin-btn" ).click(function(event) { /*connect();*/ 
+		event.preventDefault();
+		authentification({mail:$("#inputEmail").val(),password:$("#inputPassword").val()});
 	});
 
 });
@@ -356,8 +358,27 @@ function getAdressees(idConv){
 		    {
 			    $(".chat-list").empty();
 		        $.each(data, function(i, index){
-		        	console.log(index);
 		        	$(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body1 clearfix"><p>'+index.message+'</p><div class="chat_time pull-right"><small>'+index.sdf+'</small></div></div></li>');
+		        });
+		        	
+		    } 
+		});	
+	}
+	
+	function getConversationByUser(id){
+		$.ajax({
+		  headers:{
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+		  },
+		  type: "GET",
+		  url: "http://localhost:8080/userConversationByUser/" + id,
+		  success:function(data)
+		    {
+			    $("#listConversation").empty();
+		        $.each(data, function(i, index){
+		        	console.log(index);
+		        	$("#listConversation").append('<li id="idConv_'+index.conversationId+'" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body clearfix"><div class="header_sec"><strong class="primary-font">Alina Valnet</strong><strong class="pull-right">09:45</strong></div><div class="history_sec"><small class="primary-font">Coucou</small></div></div></li>');
 		        });
 		        	
 		    } 
@@ -397,20 +418,17 @@ function authentification(dataString){
 	  dataType: 'json',
 	  success:function(data)
 	    {
-		    if(data == false){
+		    if(data == 0){
 		    	alert("Mauvais identifiants !");
-		    }
-		    if(data == true){
+		    }else{
 		    	alert("Bienvenue !");
-		    	//$( "#signup-form" ).hide();
-				//$( "#signin-form" ).hide();
 				$("#signinup").hide();
 				$("#message-ui").show();
-				//$("#message-ui").css("display","block");
-				//$( "#btn-disconnect" ).fadeIn(200);
-		    }
-	        	
+				idUserAuthentificated = data;
+		    }	
 	    }
+	}).done(function(){
+		getConversationByUser(idUserAuthentificated);
 	});	
 }
 

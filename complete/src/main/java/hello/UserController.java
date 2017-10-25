@@ -62,7 +62,7 @@ public class UserController {
     }
     
     @RequestMapping(value="/authUser",method=RequestMethod.POST)
-    public @ResponseBody String authUserJson(@RequestBody User user) {
+    public @ResponseBody int authUserJson(@RequestBody User user) {
     	return userRepo.authentification(user);
     }
 }

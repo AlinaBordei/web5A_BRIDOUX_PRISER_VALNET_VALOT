@@ -90,7 +90,7 @@ public class UserRepository {
 	    
 	}
 	
-public String authentification(User user) {
+public int authentification(User user) {
 		
 	    List<User> users = new ArrayList<User>();
 	    //String pwd = user.hashPassword(user.getPassword());
@@ -102,9 +102,9 @@ public String authentification(User user) {
 	                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
 	        );
 		    if(users.size() == 0) {
-		    	return "false";
+		    	return 0;
 		    }else {
-		    	return "true";
+		    	return users.get(0).getUserId();
 		    }
 	    
 	}
