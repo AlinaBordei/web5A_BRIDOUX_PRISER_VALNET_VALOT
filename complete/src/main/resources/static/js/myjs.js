@@ -158,17 +158,17 @@ $(document).ready(function() {
 	});
 	
 	$("#validateAdressees").click(function() {
-		newConversation();
-		idConversationCourante = lastIdConv();
-		alert(idConversationCourante);
-		var test = getAdressees(idConversationCourante);
-		console.log(test);
+            newConversation();
+            idConversationCourante = lastIdConv();
+            alert(idConversationCourante);
+            var test = getAdressees(idConversationCourante);
+            $("#searchAdressees").hide();
+            console.log(test);
 		//Ajouter à la liste des conv sur la gauche
 	});
 	
-	$(".list_conv li").click(function(event) {
-		event.preventDefault();
-		alert("COCO");
+	$('.list_conv').on("click", "li", function(event) {
+        event.preventDefault();
         var select = $(this);
         var id = select.attr('id');
 			//I separate all contacts get from the input, the result is an array
@@ -182,7 +182,6 @@ $(document).ready(function() {
 					id=splitResult[i];
 					getMessageFromConversation(id);
 					idConversationCourante = id;
-					alert(idConversationCourante);
 				}
 			}
 			

@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.Message;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Repository
 @Named
@@ -31,6 +33,7 @@ public class MessageRepository {
 		return messages;
 	}
 	
+        
 	public int addMessage(int conversationID, String message, int userID) {
 		return jdbcTemplate.update("INSERT INTO message(message, id_conversation, userID) VALUES(?,?,?)", message, conversationID, userID);
 	}

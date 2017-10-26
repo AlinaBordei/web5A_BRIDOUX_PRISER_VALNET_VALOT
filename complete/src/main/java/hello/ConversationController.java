@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import repository.ConversationRepository;
 import model.Conversation;
+import model.User;
+import org.springframework.web.bind.annotation.RequestBody;
 
 //Rest for transferring data
 @RestController
@@ -34,9 +36,9 @@ public class ConversationController {
     
     //Insert new conversation 
     @RequestMapping(value="/addConversation",method=RequestMethod.POST)
-    public @ResponseBody int addConversation() {
+    public @ResponseBody int addConversation(@RequestBody String str) {
       //Return 1 when it's ok
-    	return convRepo.addConversation();
+    	return convRepo.addConversation(str);
     }
     
    //Get last conversation
