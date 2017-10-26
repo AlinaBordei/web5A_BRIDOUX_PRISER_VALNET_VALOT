@@ -6,7 +6,6 @@ import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +37,20 @@ public class MessageController {
     	int conversationID = message.getConversationID();
     	String msg = message.getMessage();
     	int userID = message.getUserID();
-    	messageRepo.addMessage(conversationID, msg, userID);
     	List<User> group = userRepo.findUsersByConversationId(conversationID);
+ 
+    	boolean isUserInGroup = false;
+    	for(User user : group) {
+    		if(userID == user.getUserId()){
+    			isUserInGroup = true;
+    		}
+    	}
+    	if (!isUserInGroup) {
+    		throw new Exception("L'user "+ userID+ " ne fait pas partie de la conversation: "+conversationID);
+    	}
+    	
+    	messageRepo.addMessage(conversationID, msg, userID);
+    	log.info(group.toString());
     	for(User user : group) {
     		simpMessagingTemplate.convertAndSend("/topic/message/"+user.getUserId(), message);
     		log.info("Message sent to: /topic/message/"+user.getUserId());

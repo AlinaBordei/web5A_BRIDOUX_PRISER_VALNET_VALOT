@@ -1,5 +1,6 @@
 var idConversationCourante;
 var idUserAuthentificated = 0;
+var stompClient = null;
 
 $(document).ready(function () {
 
@@ -463,8 +464,31 @@ function toast(text) {
     $("#toasted").css("visibility", "show");
 }
 
-
-var stompClient = null;
+function authentification(dataString) {
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		type: "POST",
+		url: "http://localhost:8080/authUser",
+		data: JSON.stringify(dataString),
+		dataType: 'json',
+		success: function (data)
+		{
+			if (data == 0) {
+				alert("Mauvais identifiants !");
+			} else {
+				alert("Bienvenue !");
+				$("#signinup").hide();
+				$("#message-ui").show();
+				idUserAuthentificated = data;
+			}
+		}
+	}).done(function () {
+		getConversationByUser(idUserAuthentificated);
+	});
+}
 
 function connect() {
     var socket = new SockJS('/esieamessenger');
@@ -478,32 +502,6 @@ function connect() {
     });
 }
 
-function authentification(dataString) {
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "POST",
-        url: "http://localhost:8080/authUser",
-        data: JSON.stringify(dataString),
-        dataType: 'json',
-        success: function (data)
-        {
-            if (data == 0) {
-                alert("Mauvais identifiants !");
-            } else {
-                alert("Bienvenue !");
-                $("#signinup").hide();
-                $("#message-ui").show();
-                idUserAuthentificated = data;
-            }
-        }
-    }).done(function () {
-        getConversationByUser(idUserAuthentificated);
-    });
-}
-
 function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
@@ -512,7 +510,11 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/app/message", {}, JSON.stringify({'message': $("#msg").val(), 'conversationID': idConversationCourante, 'userID': idUserAuthentificated}));
+    stompClient.send("/app/message", {}, JSON.stringify({
+    	'message': $("#msg").val(), 
+    	'conversationID': idConversationCourante, 
+    	'userID': idUserAuthentificated
+    }));
 }
 
 function showMessage(message) {
