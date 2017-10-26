@@ -1,6 +1,5 @@
 var idConversationCourante;
 var idUserAuthentificated = 0;
-
 $(document).ready(function() {
 	
 	$( "#signup-btn" ).click(function() {
@@ -159,6 +158,8 @@ $(document).ready(function() {
 	
 	$("#validateAdressees").click(function(event) {
 		event.preventDefault();
+		$(".chat-list").empty();
+		getConversationByUser(idUserAuthentificated);
 		//Tableau qui va contenir tes requêtes
 		  var promises = [];
 		  //Tu push toutes tes requêtes dans l'ordre dans ton tableau

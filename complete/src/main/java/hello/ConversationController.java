@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import repository.ConversationRepository;
 import model.Conversation;
-import model.User;
-import org.springframework.web.bind.annotation.RequestBody;
 
 //Rest for transferring data
 @RestController
