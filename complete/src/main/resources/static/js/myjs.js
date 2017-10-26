@@ -157,13 +157,25 @@ $(document).ready(function() {
 		$("#searchAdressees").show();
 	});
 	
-	$("#validateAdressees").click(function() {
-            newConversation();
+	$("#validateAdressees").click(function(event) {
+		event.preventDefault();
+		//Tableau qui va contenir tes requêtes
+		  var promises = [];
+		  //Tu push toutes tes requêtes dans l'ordre dans ton tableau
+		  promises.push(newConversation());
+		  promises.push(updateIdConv);
+		  promises.push(alert(lastIdConv()));
+		  promises.push(getAdressees(lastIdConv()));
+		  promises.push($("#searchAdressees").hide());
+		  //On exécute toutes les requêtes
+		  $.when.apply(null, promises).done(function () {
+		  });
+            /*newConversation();
             idConversationCourante = lastIdConv();
             alert(idConversationCourante);
             var test = getAdressees(idConversationCourante);
             $("#searchAdressees").hide();
-            console.log(test);
+            console.log(test);*/
 		//Ajouter à la liste des conv sur la gauche
 	});
 	
@@ -197,6 +209,10 @@ $(document).ready(function() {
 
 /**FUNCTIONS**/
 
+function updateIdConv(){
+	idConversationCourante = lastIdConv();
+}
+
 function getAdressees(idConv){
 	//List of contacts
 	var adresseesArray = new Array();
@@ -222,8 +238,10 @@ function getAdressees(idConv){
 				if(splitResult[i] !== ""){
 					adresseesArray.push(splitResult[i]);
 					var idUser = findIdUser(splitResult[i], idConv);
-					dataString = {userId:idUser,conversationId:idConv};
-					addAdresseesToConversation(dataString);
+					/*dataString = {userId:idUser,conversationId:idConv};
+					console.log("getAdressees1 : ");
+					console.log(dataString);
+					addAdresseesToConversation(dataString);*/
 				}
 			}
 		//Otherwise, it's my only contact,
@@ -231,6 +249,8 @@ function getAdressees(idConv){
 			//and I add it into the list
 			adresseesArray.push(textInputToUser);
 			dataString = {userId:textInputToUser,conversationId:idConv};
+			console.log("getAdressees2 : ");
+			console.log(dataString);
 			addAdresseesToConversation(dataString);
 		}
 		//I include myself in the conversation
@@ -304,6 +324,8 @@ function getAdressees(idConv){
 		  success:function(data)
 		    {
 		        	dataString = {userId:data.userId,conversationId:idConv};
+		        	console.log("findIdUser : ");
+		        	console.log(dataString);
 					addAdresseesToConversation(dataString);
 		        	
 		    },

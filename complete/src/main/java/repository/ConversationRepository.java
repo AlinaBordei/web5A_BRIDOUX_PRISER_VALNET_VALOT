@@ -43,14 +43,16 @@ public class ConversationRepository {
 		return conversation;
 	}
 	
-	public int addConversation(String str) {         
-            int idConv = jdbcTemplate.queryForInt("SELECT MAX(IDConversation) FROM conversation")+1;
+	public int addConversation() { 
+		 return jdbcTemplate.update("INSERT INTO conversation() VALUES()");
+
+            /*int idConv = jdbcTemplate.queryForInt("SELECT MAX(IDConversation) FROM conversation")+1;
             idConv = jdbcTemplate.update("INSERT INTO conversation() VALUES(?)", idConv);
             List<String> users = Arrays.asList(str.split("\\s*;\\s*")); 
             for (String user : users) {
                 jdbcTemplate.update("INSERT INTO user_conversation(conversationID, userID) VALUES(?, ?)", idConv, user);
             }
-            return idConv;
+            return idConv;*/
 	}
 	
 	public int lastConversationCreated() {
