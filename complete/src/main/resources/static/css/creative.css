@@ -119,6 +119,10 @@ body{
     margin-left: 50px;
 }
 
+.my-chat-body p{
+    background: #b6e9ff none repeat scroll 0 0 !important;
+}
+
 .chat_area .admin_chat .chat-body1 {
   	margin-left: 0;
   	margin-right: 50px;

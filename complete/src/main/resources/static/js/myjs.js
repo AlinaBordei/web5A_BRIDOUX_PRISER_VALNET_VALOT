@@ -165,15 +165,13 @@ $(document).ready(function () {
         //Tu push toutes tes requêtes dans l'ordre dans ton tableau
         promises.push(newConversation());
         promises.push(updateIdConv);
-        promises.push(alert(lastIdConv()));
         promises.push(getAdressees(lastIdConv()));
-
         promises.push($("#userNameList").hide());
         promises.push($("#validateAdressees").hide());
         promises.push($(".chat-list").empty());
-        promises.push(getConversationByUser(idUserAuthentificated).delay(500));
-        promises.push(getMessageFromConversation(lastIdConv));
-        
+        promises.push(getConversationByUser(idUserAuthentificated).delay(200));
+        promises.push(getMessageFromConversation(idConversationCourante).delay(100));
+
         //On exécute toutes les requêtes
         $.when.apply(null, promises).done(function () {
         });
@@ -403,11 +401,30 @@ function getMessageFromConversation(id) {
         {
             $(".chat-list").empty();
             $.each(data, function (i, index) {
-                $(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body1 clearfix"><p>' + index.message + '</p><div class="chat_time pull-right"><small>' + index.sdf + '</small></div></div></li>');
-            });
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "GET",
+                    url: "http://localhost:8080/usersById/" + index.userID,
+                    success: function (user)
+                    {
+                        console.log(data);
+                        console.log(user);
+                        if(user.userId == idUserAuthentificated){
+                            $(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-right"><img src="/pictures/alina.JPG"></span><div class="chat-body1 my-chat-body clearfix"><div>' + user.userName + '</div><p>' + index.message + '</p><div class="chat_time pull-right"><small>' + index.sdf + '</small></div></div></li>');
+                        }else{
+                            $(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body1 clearfix"><div>' + user.userName + '</div><p>' + index.message + '</p><div class="chat_time pull-right"><small>' + index.sdf + '</small></div></div></li>');
+                        }
 
+                    }
+                });
+            });
         }
     });
+    var n = $('.chat_area').height();
+    $('.chat_area').animate({ scrollBottom: n }, 0);
 }
 
 function getConversationByUser(id) {
@@ -445,7 +462,7 @@ function getConversationByUser(id) {
                             {
                                 console.log(user);
                                 console.log(index);
-                                $("#listConversation").append('<li id="idConv_' + index.conversationId + '" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body clearfix"><div class="header_sec"><strong class="primary-font">' + user.userName + '</strong><strong class="pull-right">09:45</strong></div><div class="history_sec"><small class="primary-font">Coucou</small></div></div></li>');
+                                $("#listConversation").append('<li id="idConv_' + index.conversationId + '" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body clearfix"><div class="header_sec"><strong class="primary-font">' + user.userName + '</strong><strong class="pull-right">09:45</strong></div><div class="history_sec"><small class="primary-font"></small></div></div></li>');
 
                             }
                         });
