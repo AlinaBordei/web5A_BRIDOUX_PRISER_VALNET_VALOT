@@ -434,11 +434,11 @@ function getAdressees(idConv){
 var stompClient = null;
 
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/esieamessenger');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/message', function (message) {
+        stompClient.subscribe('/topic/message/'+idUserAuthentificated, function (message) {
         	console.log(message);
         	showMessage(JSON.parse(message.body).message);
         });

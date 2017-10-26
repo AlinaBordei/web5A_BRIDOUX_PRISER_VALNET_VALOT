@@ -144,4 +144,17 @@ public int authentification(User user) {
 		    return user;
 	    }
 	}
+
+	public List<User> findUsersByConversationId(int conversationID) {
+		List<User> users = new ArrayList<User>();
+	    
+	    users = jdbcTemplate.query(
+                "SELECT * FROM user INNER JOIN user_conversation ON user.id=user_conversation.userID "
+                + "WHERE conversationID =  ?", new Object[] { conversationID },
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mail"))
+        );
+	    
+	    return users;
+		
+	}
 }
