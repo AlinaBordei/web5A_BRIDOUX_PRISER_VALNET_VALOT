@@ -164,7 +164,7 @@ $(document).ready(function () {
         var promises = [];
         //Tu push toutes tes requêtes dans l'ordre dans ton tableau
         promises.push(newConversation());
-        promises.push(updateIdConv);
+        promises.push(updateIdConv());
         promises.push(getAdressees(lastIdConv()));
         promises.push($("#userNameList").hide());
         promises.push($("#validateAdressees").hide());
