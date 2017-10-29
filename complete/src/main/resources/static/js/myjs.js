@@ -4,6 +4,8 @@ var stompClient = null;
 
 $(document).ready(function () {
 
+	$("#disconnect").hide();
+	
     $("#signup-btn").click(function () {
         var uname = $("#userName").val();
         var pwd = $("#password").val();
@@ -55,23 +57,7 @@ $(document).ready(function () {
     $(".signin-link").click(function () {
         $("#signup-form").hide();
         $("#signin-form").fadeIn(200);
-        $("#disconnect").hide();
     });
-
-    $("#btn-disconnect").click(function () {
-        $("#signup-form").hide();
-        $("#btn-disconnect").hide();
-        $("#message-ui").hide();
-        $("#signin-form").show(200);
-    });
-
-    /*$( "#btn-send-msg" ).click(function() {
-     
-     $clone = $("#recieved").clone().attr('id','').show();
-     $("p", $clone).text($('#msg').val());
-     $clone.appendTo(".chat-list");
-     $("#msg").val('');
-     });*/
 
     //Search someone
     $("#toUser").keyup(function (e) {
@@ -147,6 +133,8 @@ $(document).ready(function () {
     $("#newConv").click(function () {
     	$("#chatArea").empty();
         $("#searchAdressees").show();
+        $("#validateAdressees").show();
+        $(".message_write").hide();
     });
 
     $("#validateAdressees").click(function (event) {
@@ -172,6 +160,8 @@ $(document).ready(function () {
     });
 
     $('.list_conv').on("click", "li", function (event) {
+    	$("#searchAdressees").show();
+        $(".message_write").show();
         event.preventDefault();
         var select = $(this);
         var id = select.attr('data-id-conv');
@@ -194,6 +184,11 @@ $(document).ready(function () {
     $("#signin-btn").click(function (event) { /*connect();*/
         event.preventDefault();
         authentification({mail: $("#inputEmail").val(), password: $("#inputPassword").val()});
+    });
+    
+    $("#disconnect").click(function () {
+        disconnect();
+        location.reload(true);
     });
 
 });
@@ -449,7 +444,6 @@ function authentification(dataString) {
 				$("#disconnect").show();
 				$("#message-ui").show();
 				$(".message_write").hide();
-				//$("#textarea").hide();
 				idUserAuthentificated = data;
 				connect();
 				getConversationByUser(idUserAuthentificated);
