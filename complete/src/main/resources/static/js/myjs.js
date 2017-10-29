@@ -147,7 +147,7 @@ $(document).ready(function () {
         promises.push(updateIdConv());
         promises.push(getAdressees(lastIdConv()));
         promises.push($("#userNameList").hide());
-        promises.push($("#validateAdressees").hide());
+        promises.push($("#searchAdressees").hide());
         promises.push($(".chat-list").empty());
         promises.push(getConversationByUser(idUserAuthentificated));
         promises.push(getMessageFromConversation(idConversationCourante));
@@ -160,7 +160,6 @@ $(document).ready(function () {
     });
 
     $('.list_conv').on("click", "li", function (event) {
-    	$("#searchAdressees").show();
         $(".message_write").show();
         event.preventDefault();
         var select = $(this);
@@ -320,6 +319,10 @@ function findIdUser(dataString, idConv) {
 }
 
 function searchUser(dataString) {
+    $("#userNameList")
+    	.empty()
+    	.append('<option id=""></option>');
+	if (!dataString) return;
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -329,8 +332,6 @@ function searchUser(dataString) {
         url: "http://localhost:8080/findUser/" + dataString,
         success: function (data)
         {
-            $("#userNameList").empty();
-            $("#userNameList").append('<option id=""></option>');
             $.each(data, function (i, index) {
                 $("#userNameList").append('<option id="' + index.userId + '">' + index.userName + '</option>');
             });
@@ -383,10 +384,10 @@ function getMessageFromConversation(id) {
             $.each(data, function (i, messageObject) {
             	showMessage(messageObject)
             });
+            var n = $('.chat_area').prop("scrollHeight");
+            $('.chat_area').animate({ scrollTop: n }, 0);
         }
     });
-    var n = $('.chat_area').height();
-    $('.chat_area').animate({ scrollBottom: n }, 0);
 }
 
 function getConversationByUser(id) {
@@ -403,8 +404,9 @@ function getConversationByUser(id) {
             $.each(data, function (i, conversation) {
             	var conversationId = conversation.conversationId;
             	var users = conversation.userNames;
-            	var lastMessageTime = conversation.lastMessage.datetime;
-            	appendConv({id: conversationId, username: users, time: lastMessageTime});
+            	var lastMessageTime = conversation.lastMessage? conversation.lastMessage.datetime : "";
+            	var lastMessageText = conversation.lastMessage? conversation.lastMessage.message : "";
+            	appendConv({id: conversationId, username: users, time: lastMessageTime, text: lastMessageText});
             });
         }
     });
@@ -413,9 +415,28 @@ function getConversationByUser(id) {
 function appendConv(data) {
 	$conv = $('<li id="idConv_' + data.id + '" data-id-conv="' + data.id + '" class="left clearfix">\
 			<div class="chat-body clearfix"><div class="header_sec"><strong class="primary-font">' + data.username + '</strong>\
-			<strong class="pull-right">'+ data.time +'</strong></div><div class="history_sec"><small class="primary-font"></small></div></div></li>');
+			<span class="time pull-right">'+ data.time +'</span></div><div class="history_sec">\
+			<small class="text primary-font"></small></div></div></li>');
 	$("#listConversation").append($conv);
+	if (data.text) {
+		updateConv(data.id, {text: data.text});
+	}
 	return $conv;
+}
+
+function updateConv(id, data) {
+    var $conv = $('#idConv_' + id);
+	if (data.text) {		
+		var text = data.text;
+		var maxLen = 30;
+		if (text.length > maxLen) {
+			text = text.substring(0, maxLen-3) + "...";
+		}
+		$conv.find('.text').text(text);
+	}
+	if (data.time) {
+		$conv.find('.time').text(data.time);
+	}
 }
 
 function toast(text) {
@@ -490,9 +511,9 @@ function sendMessage() {
 function showMessage(message) {
 	var isMyMessage = message.userID == idUserAuthentificated;
 	if (isMyMessage) {		
-		$clone = $(".msg-sent").clone().removeClass("msg-sent");
+		var $clone = $(".msg-sent").clone().removeClass("msg-sent");
 	} else {
-		$clone = $(".msg-received").clone().removeClass("msg-received");
+		var $clone = $(".msg-received").clone().removeClass("msg-received");
 	}
     $("p", $clone).text(message.message);
     $(".time", $clone).text(message.datetime);
@@ -500,6 +521,8 @@ function showMessage(message) {
     $clone.appendTo(".chat-list");
     $clone.show();
     $("#msg").val('');
+    
+    updateConv(message.conversationID, {text: message.message, time:message.datetime});
 }
 
 $(function () {

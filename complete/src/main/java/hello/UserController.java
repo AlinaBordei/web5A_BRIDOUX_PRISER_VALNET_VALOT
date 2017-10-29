@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import repository.UserRepository;
+import model.Login;
 import model.User;
 
 //Rest for transferring data
@@ -35,11 +36,11 @@ public class UserController {
     
     //Insert new user(json) 
     @RequestMapping(value="/addUser",method=RequestMethod.POST)
-    public @ResponseBody int addUserJson(@RequestBody User user) {
-    	String name = user.getUserName();
-    	String password = user.getPassword();
+    public @ResponseBody int addUserJson(@RequestBody Login login) {
+    	String name = login.getUserName();
+    	String password = login.getPassword();
     	//password = user.hashPassword(password);
-    	String mail = user.getMail();
+    	String mail = login.getMail();
       //Return 1 when it's ok
     	return userRepo.addUser(name, password, mail);
     }
@@ -62,7 +63,7 @@ public class UserController {
     }
     
     @RequestMapping(value="/authUser",method=RequestMethod.POST)
-    public @ResponseBody int authUserJson(@RequestBody User user) {
-    	return userRepo.authentification(user);
+    public @ResponseBody int authUserJson(@RequestBody Login login) {
+    	return userRepo.authentification(login.getMail(), login.getPassword());
     }
 }

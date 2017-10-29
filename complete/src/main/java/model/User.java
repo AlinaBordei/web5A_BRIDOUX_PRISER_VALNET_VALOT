@@ -7,27 +7,23 @@ public class User {
 
 	protected int userId;
 	protected String userName;
-	protected String password;
 	protected String mail;
 
 	public User() {
 		this.userId = 0;
 		this.userName = null;
-		this.password = null;
 		this.mail = null;
 	}
 
-	public User(int userId, String username, String password, String mail) {
+	public User(int userId, String username, String mail) {
 		this.userId = userId;
 		this.userName = username;
-		this.password = password;
 		this.mail = mail;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("User[userId=%d, username='%s', password='%s', mail='%s']", userId, userName, password,
-				mail);
+		return String.format("User[userId=%d, username='%s', mail='%s']", userId, userName, mail);
 	}
 	
 	public String hashPassword(String password) {
@@ -38,7 +34,6 @@ public class User {
 			String encryptedString = new String(messageDigest.digest());
 			return encryptedString;
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
 		}
@@ -60,14 +55,6 @@ public class User {
 
 	public String getUserName() {
 		return this.userName;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPassword() {
-		return this.password;
 	}
 
 	public void setMail(String mail) {
