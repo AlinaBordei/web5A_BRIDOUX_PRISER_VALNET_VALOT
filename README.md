@@ -10,7 +10,7 @@ Le mode opératoire décrit comment lancer l'aplication ESIEA Messenger sur sa m
 ### Comment lancer ESIEA Messenger
 
 Pour lancer l'application ESIEA Messenger sur votre machine locale, vous avez besoin de l'IDE STS (qui gère le framework Spring) et d'une base de données MySQL(ex. le MySQL de Wampserver pour Windows). 
-Vous trouverez la base de données MySQL "bddweb.sql" dans le reposiroty GitHub.
+Vous trouverez la base de données MySQL "bddweb (1).sql" dans le reposiroty GitHub.
 
 Lancez ESIEA Messenger sur votre localhost comme suit: 
 
