@@ -144,12 +144,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#signup-test").click(function () {
-        var test = getAdressees(6);
-        console.log(test);
-    });
-
     $("#newConv").click(function () {
+    	$("#chatArea").empty();
         $("#searchAdressees").show();
     });
 
@@ -171,13 +167,8 @@ $(document).ready(function () {
         //On exécute toutes les requêtes
         $.when.apply(null, promises).done(function () {
         });
-        /*newConversation();
-         idConversationCourante = lastIdConv();
-         alert(idConversationCourante);
-         var test = getAdressees(idConversationCourante);
-         $("#searchAdressees").hide();
-         console.log(test);*/
         //Ajouter à la liste des conv sur la gauche
+        getConversationByUser(idUserAuthentificated);
     });
 
     $('.list_conv').on("click", "li", function (event) {
@@ -249,8 +240,6 @@ function getAdressees(idConv) {
             //and I add it into the list
             adresseesArray.push(textInputToUser);
             dataString = {userId: textInputToUser, conversationId: idConv};
-            console.log("getAdressees2 : ");
-            console.log(dataString);
             addAdresseesToConversation(dataString);
         }
         //I include myself in the conversation
@@ -324,8 +313,6 @@ function findIdUser(dataString, idConv) {
         success: function (data)
         {
             dataString = {userId: data.userId, conversationId: idConv};
-            console.log("findIdUser : ");
-            console.log(dataString);
             addAdresseesToConversation(dataString);
 
         },
@@ -419,7 +406,6 @@ function getConversationByUser(id) {
         {
             $("#listConversation").empty();
             $.each(data, function (i, conversation) {
-            	console.log(conversation);
             	var conversationId = conversation.conversationId;
             	var users = conversation.userNames;
             	var lastMessageTime = conversation.lastMessage.datetime;
@@ -476,9 +462,7 @@ function connect() {
     var socket = new SockJS('/esieamessenger');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/message/'+idUserAuthentificated, function (message) {
-        	console.log(message);
         	var message = JSON.parse(message.body);
         	if (message.conversationID != idConversationCourante) { // Le message ne correspond pas à la conversation ouverte
         		var $conv = $('#idConv_' + message.conversationID);
@@ -499,7 +483,6 @@ function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
     }
-    console.log("Disconnected");
 }
 
 function sendMessage() {
