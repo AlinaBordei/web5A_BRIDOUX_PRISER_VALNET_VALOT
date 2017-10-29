@@ -35,6 +35,7 @@ public class MessageController {
     @MessageMapping("/message")
     public Message transferMessage(Message message) throws Exception {
     	int conversationID = message.getConversationID();
+    	log.info("L'id conv vaut: " + conversationID);
     	String msg = message.getMessage();
     	int userID = message.getUserID();
     	List<User> group = userRepo.findUsersByConversationId(conversationID);
@@ -42,6 +43,7 @@ public class MessageController {
     	boolean isUserInGroup = false;
     	for(User user : group) {
     		if(userID == user.getUserId()){
+    			message.setUsername(user.getUserName());
     			isUserInGroup = true;
     		}
     	}

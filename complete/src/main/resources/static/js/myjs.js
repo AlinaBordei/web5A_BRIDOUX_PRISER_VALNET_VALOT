@@ -169,8 +169,8 @@ $(document).ready(function () {
         promises.push($("#userNameList").hide());
         promises.push($("#validateAdressees").hide());
         promises.push($(".chat-list").empty());
-        promises.push(getConversationByUser(idUserAuthentificated).delay(200));
-        promises.push(getMessageFromConversation(idConversationCourante).delay(100));
+        promises.push(getConversationByUser(idUserAuthentificated));
+        promises.push(getMessageFromConversation(idConversationCourante));
 
         //On exécute toutes les requêtes
         $.when.apply(null, promises).done(function () {
@@ -187,27 +187,26 @@ $(document).ready(function () {
     $('.list_conv').on("click", "li", function (event) {
         event.preventDefault();
         var select = $(this);
-        var id = select.attr('id');
-        //I separate all contacts get from the input, the result is an array
-        var splitResult = id.split("idConv_");
-        //I get the array size
-        var idEndOfTheSplit = Object.keys(splitResult).length;
-        //Append each contact into the list
-        var i = 0;
-        for (i = 0; i < idEndOfTheSplit; i++) {
-            if (splitResult[i] !== "") {
-                id = splitResult[i];
+        var id = select.attr('data-id-conv');
+//        //I separate all contacts get from the input, the result is an array
+//        var splitResult = id.split("idConv_");
+//        //I get the array size
+//        var idEndOfTheSplit = Object.keys(splitResult).length;
+//        //Append each contact into the list
+//        var i = 0;
+//        for (i = 0; i < idEndOfTheSplit; i++) {
+//            if (splitResult[i] !== "") {
+//                id = splitResult[i];
                 getMessageFromConversation(id);
-                idConversationCourante = id;
-            }
-        }
+                //idConversationCourante = id;
+//            }
+//        }
 
     });
 
     $("#signin-btn").click(function (event) { /*connect();*/
         event.preventDefault();
         authentification({mail: $("#inputEmail").val(), password: $("#inputPassword").val()});
-        connect();
     });
 
 });
@@ -266,7 +265,7 @@ function getAdressees(idConv) {
 }
 /*<li class="left clearfix">
  <span class="pull-left">
- <img src="/pictures/alina.JPG">
+ <img src="/pictures/profil.png">
  </span>
  <div class="chat-body1 clearfix">
  <p>Ca été ton weekend ?</p>
@@ -390,6 +389,8 @@ function lastIdConv() {
 }
 
 function getMessageFromConversation(id) {
+	$('#idConv_' + idConversationCourante).removeClass('btn-info');
+	$('#idConv_' + id).removeClass('btn-warning').addClass('btn-info');
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -399,27 +400,10 @@ function getMessageFromConversation(id) {
         url: "http://localhost:8080/messageByConversationId/" + id,
         success: function (data)
         {
+        	idConversationCourante = id;
             $(".chat-list").empty();
-            $.each(data, function (i, index) {
-                $.ajax({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    type: "GET",
-                    url: "http://localhost:8080/usersById/" + index.userID,
-                    success: function (user)
-                    {
-                        console.log(data);
-                        console.log(user);
-                        if(user.userId == idUserAuthentificated){
-                            $(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-right"><img src="/pictures/alina.JPG"></span><div class="chat-body1 my-chat-body clearfix"><div>' + user.userName + '</div><p>' + index.message + '</p><div class="chat_time pull-right"><small>' + index.sdf + '</small></div></div></li>');
-                        }else{
-                            $(".chat-list").append('<li id="recieved" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body1 clearfix"><div>' + user.userName + '</div><p>' + index.message + '</p><div class="chat_time pull-right"><small>' + index.sdf + '</small></div></div></li>');
-                        }
-
-                    }
-                });
+            $.each(data, function (i, messageObject) {
+            	showMessage(messageObject)
             });
         }
     });
@@ -428,57 +412,39 @@ function getMessageFromConversation(id) {
 }
 
 function getConversationByUser(id) {
-    $.ajax({
+    return $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         type: "GET",
-        url: "http://localhost:8080/userConversationByUser/" + id,
+        url: "http://localhost:8080/conversationByUser/" + id,
         success: function (data)
         {
-
-
             $("#listConversation").empty();
-            $.each(data, function (i, index) {
-                $.ajax({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    type: "GET",
-                    url: "http://localhost:8080/userConversationById/" + index.conversationId,
-                    success: function (userId)
-                    {
-                        console.log(userId);
-                        $.ajax({
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            type: "GET",
-                            url: "http://localhost:8080/usersById/" + userId[0].userId,
-                            success: function (user)
-                            {
-                                console.log(user);
-                                console.log(index);
-                                $("#listConversation").append('<li id="idConv_' + index.conversationId + '" class="left clearfix"><span class="pull-left"><img src="/pictures/alina.JPG"></span><div class="chat-body clearfix"><div class="header_sec"><strong class="primary-font">' + user.userName + '</strong><strong class="pull-right">09:45</strong></div><div class="history_sec"><small class="primary-font"></small></div></div></li>');
-
-                            }
-                        });
-                    }
-                });
-
+            $.each(data, function (i, conversation) {
+            	console.log(conversation);
+            	var conversationId = conversation.conversationId;
+            	var users = conversation.userNames;
+            	var lastMessageTime = conversation.lastMessage.datetime;
+            	appendConv({id: conversationId, username: users, time: lastMessageTime});
             });
-
         }
     });
+}
+    
+function appendConv(data) {
+	$conv = $('<li id="idConv_' + data.id + '" data-id-conv="' + data.id + '" class="left clearfix">\
+			<div class="chat-body clearfix"><div class="header_sec"><strong class="primary-font">' + data.username + '</strong>\
+			<strong class="pull-right">'+ data.time +'</strong></div><div class="history_sec"><small class="primary-font"></small></div></div></li>');
+	$("#listConversation").append($conv);
+	return $conv;
 }
 
 function toast(text) {
     $("#toasted").empty();
     $("#toasted").append(text);
-    $("#toasted").css("visibility", "show");
+    $("#toasted").slideDown();
 }
 
 function authentification(dataString) {
@@ -499,11 +465,12 @@ function authentification(dataString) {
 				alert("Bienvenue !");
 				$("#signinup").hide();
 				$("#message-ui").show();
+				//$("#textarea").hide();
 				idUserAuthentificated = data;
+				connect();
+				getConversationByUser(idUserAuthentificated);
 			}
 		}
-	}).done(function () {
-		getConversationByUser(idUserAuthentificated);
 	});
 }
 
@@ -514,7 +481,18 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/message/'+idUserAuthentificated, function (message) {
         	console.log(message);
-        	showMessage(JSON.parse(message.body).message);
+        	var message = JSON.parse(message.body);
+        	if (message.conversationID != idConversationCourante) { // Le message ne correspond pas à la conversation ouverte
+        		var $conv = $('#idConv_' + message.conversationID);
+        		if ($conv.length == 0) { // On m'écrit un message dans une conversation que je n'ai pas encore dans ma liste
+        			$conv = appendConv({id: message.conversationID, username: message.username, time: message.datetime}); // Ajoute la conversation à la liste des conversations
+        			$conv.addClass('btn-warning');
+        		} else { // On m'écrit dans une conversation déjà dans ma liste
+        			$conv.addClass('btn-warning');
+        		}
+        	} else { // Message adressé dans la conv ouverte        		
+        		showMessage(message);
+        	}
         });
     });
 }
@@ -535,21 +513,17 @@ function sendMessage() {
 }
 
 function showMessage(message) {
-    //$("#greetings").append("<tr><td>" + message + "</td></tr>");
-    var dt = new Date();
-    var h = dt.getHours();
-    if (h < 10) {
-        h = "0" + h;
-    }
-    var m = dt.getMinutes();
-    if (m < 10) {
-        m = "0" + m;
-    }
-    var time = h + ":" + m;
-    $clone = $("#recieved").clone().attr('id', '').show();
-    $("p", $clone).text(message);
-    $("small", $clone).text(time);
+	var isMyMessage = message.userID == idUserAuthentificated;
+	if (isMyMessage) {		
+		$clone = $(".msg-sent").clone().removeClass("msg-sent");
+	} else {
+		$clone = $(".msg-received").clone().removeClass("msg-received");
+	}
+    $("p", $clone).text(message.message);
+    $(".time", $clone).text(message.datetime);
+    $(".username", $clone).text(message.username);
     $clone.appendTo(".chat-list");
+    $clone.show();
     $("#msg").val('');
 }
 

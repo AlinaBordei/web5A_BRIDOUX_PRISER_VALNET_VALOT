@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.Conversation;
+import model.Message;
 
 @Repository
 @Named
@@ -58,6 +59,28 @@ public class ConversationRepository {
 		conversation = jdbcTemplate.query("SELECT MAX(IDConversation) FROM conversation",
 				(rs, rowNum) -> new Conversation(rs.getInt("MAX(IDConversation)")));
 
-		return conversation.get(0).getIdConversation();
+		return conversation.get(0).getConversationId();
+	}
+
+	public List<Conversation> findByUserId(Integer id) {
+		List<Conversation> conversations = new ArrayList<Conversation>();
+
+		String req = "SELECT conversation.IDConversation, group_concat(user.name) as userNames FROM conversation "
+				+ "INNER JOIN user_conversation my_uc ON conversation.IDConversation=my_uc.conversationID AND my_uc.userID = ? "
+				+ "INNER JOIN user_conversation others_uc ON conversation.IDConversation=others_uc.conversationID AND others_uc.userId != my_uc.userID "
+				+ "LEFT JOIN user ON others_uc.userID=user.id "
+				+ "GROUP BY conversation.IDConversation";
+		//System.out.println(req);
+		conversations = jdbcTemplate.query(req, new Object[] { id },
+				(rs, rowNum) -> new Conversation(rs.getInt("IDConversation"), rs.getString("userNames")));
+		
+		for (Conversation conversation : conversations) {
+			jdbcTemplate.query("SELECT * FROM message WHERE message.id_conversation = ? ORDER BY message.date DESC LIMIT 1", new Object[] { conversation.getConversationId() }, 
+					(rs, rowNum) -> conversation.setLastMessage(
+							new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getTimestamp("date"), rs.getInt("userID"), null)
+			));
+		}
+		
+		return conversations;
 	}
 }

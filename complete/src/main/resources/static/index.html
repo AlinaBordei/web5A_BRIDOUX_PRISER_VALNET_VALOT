@@ -28,7 +28,7 @@
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<img src="/pictures/lapin.jpg" class="logo"><a class="navbar-brand" href="#">ESIEA Messenger</a>
+		<img src="/pictures/logoESIEA.jpg" class="logo"><a class="navbar-brand" href="#">ESIEA Messenger</a>
 
 		<div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
@@ -116,28 +116,10 @@
 				<div class="errorForm" id="errorMessageAdressees"></div>
 				<div class="chat_area">
 					<ul class="chat-list list-unstyled">
-						<li id="recieved" class="left clearfix hide">
-							<span class="pull-left">
-								<img src="/pictures/alina.JPG">
-							</span>
-							<div class="chat-body1 clearfix">
-								<p>Ca été ton weekend ?</p>
-								<div class="chat_time pull-right"><small>20:31</small></div>
-							</div>
-						</li>
-						<li class="left clearfix admin_chat hide send">
-							<span class="pull-right">
-								<img src="/pictures/alina.JPG">
-							</span>
-							<div class="chat-body1 clearfix">
-								<p>Oui super! On a eu du beau temps!</p>
-								<div class="chat_time pull-left"><small>20:40</small></div>
-							</div>
-						</li>
 					</ul>
 				</div><!-- end of chat_area-->
 
-				<div class="message_write">
+				<div class="message_write" id= "textarea">
 					<textarea id="msg" class="form-control" placeholder="Ecrivez un message..."></textarea>
 					<div class="clearfix"></div>
 					<div class="chat_bottom">
@@ -151,6 +133,27 @@
 	</div>
 	
 	<div id="toasted"></div>
-	
+	<div id="templates">
+		<ul>
+			<li class="msg-sent left clearfix hide"><span class="pull-left">
+					<span class="username">Moi</span>
+			</span>
+				<div class="chat-body1 clearfix">
+					<p>Ca été ton weekend ?</p>
+					<div class="chat_time pull-right">
+						<small class="time">20:31</small>
+					</div>
+				</div></li>
+			<li class="msg-received left clearfix admin_chat hide send"><span
+				class="pull-right"> <span class="username">Lui</span>
+			</span>
+				<div class="chat-body1 my-chat-body clearfix">
+					<p>Oui super! On a eu du beau temps!</p>
+					<div class="chat_time pull-left">
+						<small class="time">20:40</small>
+					</div>
+				</div></li>
+		</ul>
+	</div>
 </body>
 </html>

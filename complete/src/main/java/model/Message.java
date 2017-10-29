@@ -15,6 +15,7 @@ public class Message {
 	protected String sdf;
 	//protected String datetime;
 	protected int userID;
+	protected String username;
 
 	public Message() {
 		this.messageId = 0;
@@ -25,16 +26,21 @@ public class Message {
 		this.userID = 0;
 	}
 
-	public Message(int messageId, int conversationID, String message, Timestamp datetime, int userID) {
+	public Message(int messageId, int conversationID, String message, Timestamp datetime, int userID, String username) {
 		this.messageId = messageId;
 		this.conversationID = conversationID;
 		this.message = message;
-		//this.datetime = datetime;
+		this.datetime = datetime;
 		this.userID = userID;
+		this.username = username;
 		setSdf(datetime);
 	}
 
 	///////////////////// SET /////////////////////
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public void setMessageId(int messageId) {
 		this.messageId = messageId;
 	}
@@ -52,7 +58,7 @@ public class Message {
 	}*/
 	
 	public void setSdf(Timestamp datetime) {
-		this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(datetime.getTime());
+		this.sdf = new SimpleDateFormat("dd/MM HH:mm").format(datetime.getTime());
 	}
 	
 	public void setDatetime(Timestamp datetime) {
@@ -63,6 +69,10 @@ public class Message {
 		this.userID = userID;
 	}
 	///////////////////// GET /////////////////////
+	
+	public String getUsername() {
+		return username;
+	}
 
 	public int getMessageId() {
 		return this.messageId;
@@ -80,12 +90,8 @@ public class Message {
 		return this.sdf;
 	}
 
-	/*public Date getDatetime() {
-		return this.datetime;
-	}*/
-	
-	public Timestamp getDatetime() {
-		return this.datetime;
+	public String getDatetime() {
+		return new SimpleDateFormat("dd/MM HH:mm").format(datetime);
 	}
 
 	public int getUserID() {

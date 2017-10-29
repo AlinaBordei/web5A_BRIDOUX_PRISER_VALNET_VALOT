@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import repository.ConversationRepository;
 import repository.UserConversationRepository;
+import model.Conversation;
 import model.UserConversation;
 
 //Rest for transferring data
@@ -20,11 +22,18 @@ import model.UserConversation;
 public class UserConversationController {	
 	@Inject
 	UserConversationRepository userConversationRepo;
+	@Inject
+	ConversationRepository conversationRepo;
 	
 	//Get all users conversations
     @GetMapping("/allUsersConversations")
     public @ResponseBody List<UserConversation> allUserConversation() {
     	return userConversationRepo.allUserConversation();
+    }
+    
+    @GetMapping("/conversationByUser/{id}")
+    public @ResponseBody List<Conversation> conversationByUser(@PathVariable("id") Integer id) {
+    	return conversationRepo.findByUserId(id);
     }
     
     @GetMapping("/userConversationByUser/{id}")

@@ -25,8 +25,10 @@ public class MessageRepository {
 	public List<Message> messageByConversationId(int conversationID) {
 		List<Message> messages = new ArrayList<Message>();
 
-		messages = jdbcTemplate.query("SELECT * FROM message WHERE id_conversation = ? order by date ASC", new Object[] { conversationID },
-				(rs, rowNum) -> new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getTimestamp("date"), rs.getInt("userID")));
+		messages = jdbcTemplate.query("SELECT message.*, user.name as username FROM message "
+				+ "INNER JOIN user ON message.userID = user.id "
+				+ "WHERE id_conversation = ? order by date ASC", new Object[] { conversationID },
+				(rs, rowNum) -> new Message(rs.getInt("IDMessage"), rs.getInt("id_conversation"), rs.getString("message"), rs.getTimestamp("date"), rs.getInt("userID"), rs.getString("username")));
 
 		return messages;
 	}
