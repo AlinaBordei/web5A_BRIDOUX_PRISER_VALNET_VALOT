@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script type="text/javascript" src="/js/myjs.js"></script>
 
-	<title>WhatsUp</title>
+	<title>ESIEA Messenger</title>
 </head>
 
 <body>
@@ -30,14 +30,16 @@
 		</button>
 		<img src="/pictures/logoESIEA.jpg" class="logo"><a class="navbar-brand" href="#">ESIEA Messenger</a>
 
-		<div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item" id="btn-disconnect" style="display: none;">
-					<button id="disconnect" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Déconnexion</button>
-				</li>
-			</ul>
-		</div>
-	</nav>
+		<div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                	<div class="btn-nav">
+                		<input id="disconnect" type="submit" class="btn btn-primary btn-small navbar-btn" value="Déconnexion"></input>
+                    </div>
+                </li>
+            </ul>
+        </div>
+	</nav> 
 	<!-- A rajouter en haut de la liste de conversation -->
 	<form class="form-inline my-2 my-lg-0" style="display: none;">
 		<input class="form-control mr-sm-2" type="text" placeholder="Search">

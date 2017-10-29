@@ -48,20 +48,15 @@ $(document).ready(function () {
     $(".signup-link").click(function () {
         $("#signin-form").hide();
         $("#signup-form").fadeIn(200);
+        $("#disconnect").hide();
     });
 
 
     $(".signin-link").click(function () {
         $("#signup-form").hide();
         $("#signin-form").fadeIn(200);
+        $("#disconnect").hide();
     });
-
-    /*$( "#signin-btn" ).click(function() {
-     $( "#signup-form" ).hide();
-     $( "#signin-form" ).hide();
-     $( "#message-ui" ).show();
-     $( "#btn-disconnect" ).fadeIn(200);
-     });*/
 
     $("#btn-disconnect").click(function () {
         $("#signup-form").hide();
@@ -159,6 +154,7 @@ $(document).ready(function () {
     });
 
     $("#validateAdressees").click(function (event) {
+    	$(".message_write").show();
         event.preventDefault();
         //Tableau qui va contenir tes requêtes
         var promises = [];
@@ -464,7 +460,9 @@ function authentification(dataString) {
 			} else {
 				alert("Bienvenue !");
 				$("#signinup").hide();
+				$("#disconnect").show();
 				$("#message-ui").show();
+				$(".message_write").hide();
 				//$("#textarea").hide();
 				idUserAuthentificated = data;
 				connect();
